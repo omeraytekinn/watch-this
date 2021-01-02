@@ -6,6 +6,7 @@ from sqlalchemy.orm import sessionmaker
 import pandas as pd
 from models import Movie, Actor, Director, Genre, create_db
 import os
+import re
 
 
 def get_movies():
@@ -30,8 +31,9 @@ def get_movies():
             title = header.a.text.strip()
             poster = container.find('div', class_='lister-item-image float-left').a.img['loadlate'].rsplit(
                 '@', 1)[0]+"@._V1_UX546_CR0,0,546,804_AL_.jpg"
-            year = container.find(
-                'span', class_="lister-item-year text-muted unbold").text[1:5].strip()
+            year_temp = container.find(
+                'span', class_="lister-item-year text-muted unbold").text
+            year = re.findall(r"\(([0-9]{4})\)", year_temp)[0]
             duration = container.find(
                 'span', class_='runtime').text[:-3].strip()
             genre = container.find('span', class_='genre').text.strip()
@@ -51,10 +53,6 @@ def get_movies():
 
 
 def save_to_db():
-    try:
-        os.remove("myblog.db")
-    except:
-        pass
     create_db()
     print("movies fetching")
     get_movies()
