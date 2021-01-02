@@ -63,6 +63,11 @@ def save_to_db():
 
     df = pd.read_csv("movies.csv")
     for i in range(len(df)):
+        m = session.query(Movie).filter_by(
+            title=df.iloc[i]['title'], year=int(df.iloc[i]['year']))
+        if m:
+            pass
+
         movie = Movie(title=df.iloc[i]['title'], year=int(df.iloc[i]['year']), poster=df.iloc[i]['poster'], duration=int(
             df.iloc[i]['duration']), imdb_rating=df.iloc[i]['imdb_rating'], metascore_rating=df.iloc[i]['metascore_rating'])
         session.add(movie)
