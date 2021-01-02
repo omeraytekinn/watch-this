@@ -34,6 +34,7 @@ class Movie(Base):
         "Actor", secondary=movie_actor_link, back_populates="movies")
     genres = relationship(
         "Genre", secondary=movie_genre_link, back_populates="movies")
+    scores = relationship("UserScore", back_populates="movie")
 
     def __repr__(self):
         return "<User(title='%s', year='%s', imdb_rating='%s')>" % (
@@ -61,6 +62,28 @@ class Genre(Base):
     name = Column(String)
     movies = relationship(
         "Movie", secondary=movie_genre_link, back_populates="genres")
+
+
+class UserScore(Base):
+    __tablename__ = 'user_score'
+    id = Column(Integer, primary_key=True)
+    score = Column(Integer)
+    user = relationship("User", back_populates="scores")
+    user_id = Column(Integer, ForeignKey('users.id'))
+    movie = relationship("Movie", back_populates="scores")
+    movie_id = Column(Integer, ForeignKey('movies.id'))
+
+    def __repr__(self):
+        return "<UserScore(user_name='%s', movie_name='%s', user_score='%s')>" % (
+            self.user.name, self.movie.name, self.score)
+
+
+class User(Base):
+    __tablename__ = 'users'
+    id = Column(Integer, primary_key=True)
+    name = Column(String, nullable=False)
+    email = Column(String, nullable=False)
+    scores = relationship("UserScore", back_populates="user")
 
 
 def create_db():
