@@ -32,13 +32,11 @@
     </div>
     <script defer>
         function dynamicModal(movie) {
-            console.log(movie.genre);
-            $("#banner").attr("src",movie.img);
-            $("#movie_name").html(movie.name + " ("+movie.year+")");
+            $("#banner").attr("src",movie.poster);
+            $("#movie_name").html(movie.title + " ("+movie.year+")");
             $("#director").html("<b>Yönetmen: </b>" + movie.director);
-            $("#writer").html("<b>Senarist: </b>" + movie.writer);
             $("#genre").html("<b>Tür: </b>" + movie.genre);
-            $("#actors").html("<b>Oyuncular: </b>" + movie.actors);
-            $("#rating").html("<b>Puan: </b>" + movie.rate + " / " + movie.rating_count.toLocaleString());
+            $("#actors").html("<b>Oyuncular: </b>" + movie.cast);
+            $("#rating").html("<b>Puan: </b>" + movie.imdb_rating);
         }
     </script>
