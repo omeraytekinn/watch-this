@@ -44,7 +44,7 @@ def login(username, password):
 def register(username, password):
     return username
 
-def check_login():
+def check_login(request):
     return False
 
 def recommend_movies():
