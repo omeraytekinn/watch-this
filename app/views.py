@@ -1,13 +1,13 @@
 from flask.globals import session
 from app import app
 from flask import render_template, redirect, Response, request
-import app.utils.services as services
+import app.src.services as services
 
 
 @app.route('/')
 def index():
     jwt = request.headers.get("jwt")
-    user = services.check_login()
+    user = services.check_login(jwt)
     is_login = False
     recommended_movies = None
     if user:
