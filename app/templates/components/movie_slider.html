@@ -7,10 +7,10 @@
     <div class="col col-md-3">
         <div class="card bg-dark text-white custom-card">
             <a href="#" class="custom-card-link" data-bs-toggle="modal" data-bs-target="#movieModal" onclick="dynamicModal(movies['{{ index }}']);"></a>
-            <img src={{ movie.img }} alt="" class="custom-card-image">
+            <img src={{ movie.poster }} alt="" class="custom-card-image">
             <div class="custom-card-cover"></div>
             <div class="custom-card-text">
-              <h5 class="card-title p-3">{{ movie.name }} ({{ movie.year }})</h5>
+              <h5 class="card-title p-3">{{ movie.title }} ({{ movie.year }})</h5>
             </div>
           </div>
     </div>
