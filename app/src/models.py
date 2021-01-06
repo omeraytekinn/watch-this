@@ -47,6 +47,9 @@ class Director(Base):
     name = Column(String)
     movies = relationship("Movie", back_populates="director")
 
+    def __repr__(self):
+        return "<Director(name='%s')>" % (self.name)
+
 
 class Actor(Base):
     __tablename__ = 'actors'
@@ -55,6 +58,9 @@ class Actor(Base):
     movies = relationship(
         "Movie", secondary=movie_actor_link, back_populates="actors")
 
+    def __repr__(self):
+        return "<Actor(name='%s')>" % (self.name)
+
 
 class Genre(Base):
     __tablename__ = 'genres'
@@ -62,6 +68,9 @@ class Genre(Base):
     name = Column(String)
     movies = relationship(
         "Movie", secondary=movie_genre_link, back_populates="genres")
+
+    def __repr__(self):
+        return "<Genre(name='%s')>" % (self.name)
 
 
 class UserScore(Base):
@@ -84,6 +93,9 @@ class User(Base):
     name = Column(String, nullable=False)
     email = Column(String, nullable=False)
     scores = relationship("UserScore", back_populates="user")
+
+    def __repr__(self):
+        return "<User(email='%s')>" % (self.name)
 
 
 def create_db():
