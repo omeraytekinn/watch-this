@@ -1,0 +1,44 @@
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+        <div class="modal-content bg-dark p-2">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-4">
+                        <img id="banner" alt="" style="max-width: 100%; border-radius: 3px;" >
+                    </div>
+                    <div class="col-8">
+                        <h4 id="movie_name"></h4>
+                        <hr>
+                        <ul class="list-group small">
+                            <li class="list-group-item" id="director"></li>
+                            <li class="list-group-item" id="writer"></li>
+                            <li class="list-group-item" id="genre"></li>
+                            <li class="list-group-item" id="actors"></li>
+                            <li class="list-group-item" id="rating"></li>
+                          </ul>
+
+                          <div class="row mt-4">
+                            <div class=" offset-6 col-6" style="text-align: end;">
+                                <button class="btn btn-dark" style="background-color: rgb(67, 68, 57); border:none;" type="button">Beğendim</button>
+                                <button class="btn btn-dark" type="button">Kapat</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <script defer>
+        function dynamicModal(movie) {
+            console.log(movie.genre);
+            $("#banner").attr("src",movie.img);
+            $("#movie_name").html(movie.name + " ("+movie.year+")");
+            $("#director").html("<b>Yönetmen: </b>" + movie.director);
+            $("#writer").html("<b>Senarist: </b>" + movie.writer);
+            $("#genre").html("<b>Tür: </b>" + movie.genre);
+            $("#actors").html("<b>Oyuncular: </b>" + movie.actors);
+            $("#rating").html("<b>Puan: </b>" + movie.rate + " / " + movie.rating_count.toLocaleString());
+        }
+    </script>
