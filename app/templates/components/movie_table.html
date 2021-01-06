@@ -34,7 +34,7 @@
                 <td>{{movie.rate}} / {{movie.rating_count}}</td>
                 <td>
                     <button class="btn btn-dark" style="background-color: rgb(67, 68, 57); border:none;" type="button"
-                        data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="dynamicModal(movies['{{ index }}']);">+</button>
+                        data-bs-toggle="modal" data-bs-target="#movieModal" onclick="dynamicModal(movies['{{ index }}']);">+</button>
                     <button class="btn btn-dark" style="background-color: rgb(90, 34, 18); border:none;"
                         type="button">-</button>
                 </td>
@@ -57,3 +57,7 @@
         </div>
     </form>
 </div>
+
+<script>
+    var movies = JSON.parse('{{ movies|tojson }}');
+</script>
