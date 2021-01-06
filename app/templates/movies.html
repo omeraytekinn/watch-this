@@ -9,11 +9,5 @@
     {% with title="Popüler Filmler", movies=movies  %}
     {% include 'components/movie_table.html' %}
     {% endwith %}  
-    <script>
-        var movies = JSON.parse('{{ movies|tojson }}');
-        console.log(movies['1']);
-    </script>
-
-    {% include 'components/movie_modal.html' %}
 </div>
 {% endblock %}

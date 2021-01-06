@@ -1,0 +1,24 @@
+<!-- Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content bg-dark p-2">
+            <div class="modal-body">
+                <form method="POST" action="/login">
+                    <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Kullanıcı Adı</label>
+                    <input type="text" name="username" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Parola</label>
+                    <input type="password" name="password" class="form-control">
+                    </div>
+                    
+                    <button class="btn btn-dark" style="
+                    background-color:rgb(67, 68, 57);
+                    border: none;
+                    " type="submit">Giriş Yap</button> 
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
