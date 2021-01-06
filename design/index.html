@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <title>SPA</title>
+    <style>
+        body {
+            /*
+                Kırmızı: rgb(123, 49, 30);
+                KAranlık: rgb(45, 45,46);
+                Aydınlık: rgb(121, 122, 121);
+                KAranlık: rgb(45, 45,46);
+                Yeşil: rgb(67, 68, 57);
+                Ekstra parlak: rgb(239, 240, 236);
+                 
+            */
+            /*background-color: rgb(123, 49, 30);*/
+            background-color:rgb(45, 45,46);
+            color: rgb(239, 240, 236);
+            
+        }
+        .navbar a {
+            color: rgb(169, 173, 169) !important;
+        }
+        .custom-card {
+            height:300px; 
+            overflow:hidden;
+            box-shadow: 0 0 3pt 2pt rgb(67, 68, 57);
+            outline: 0;
+            border: 1px solid rgb(67, 68, 57);
+        }
+        .custom-card-image {
+            width: 100%;
+            position: absolute;
+        }
+        .custom-card-text {
+            background-color: rgba(0,0,0,0.5);
+            margin-bottom: 0;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            padding:3px;
+            font-size:small;
+            height: 35%;
+        }
+        .custom-card-link {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 3000;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light"  style="background-color: none;">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Watch-This</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Anasayfa</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="movies.html">Tüm Filmler</a>
+              </li>
+            </ul>
+            <div class="d-flex">
+                <div class="btn-group" role="group" aria-label="Button group">
+                    
+                <button class="btn btn-dark" style="
+                background-color:rgb(67, 68, 57);
+                border: none;
+                " type="submit"
+                data-bs-toggle="modal" data-bs-target="#loginModal">Giriş Yap</button> 
+                <button class="btn btn-dark" style="
+                background-color: rgb(123, 49, 30);
+                border: none;
+                " type="submit"
+                data-bs-toggle="modal" data-bs-target="#registerModal">Kaydol</button>
+                </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <section class="main-section">
+          <div class="container">
+                <div class=" p-4 rounded mt-3" style="background-color: rgba(134, 136, 114, .5);">
+                    <h1 class="display-6 text-capitalize">film öneri sistemine hoşgeldiniz </h1>
+                    <p>
+                        Öneriya başlamak için giriş yapınız. <br>
+                        Yaptıklarımız:
+                    </p>
+
+                    <ul>
+                        <li> Lorem ipsum dolor sit amet consectetur adipisicing elit. </li>
+                        <li> Lorem ipsum dolor sit amet consectetur adipisicing elit. </li>
+                        <li> Lorem ipsum dolor sit amet consectetur adipisicing elit. </li>
+                        <li> Lorem ipsum dolor sit amet consectetur adipisicing elit. </li>
+                    </ul> 
+                </div>
+                <div class="container mt-5 mb-5 popular">
+                    <h4 class="slider-title" style="display: inline;">Popüler Filmler</h4> 
+                    <a href="#" style="float: right; text-decoration: none; color:rgb(255, 146, 118);">Tümünü Gör</a>
+                    <div class="row mt-3">
+                        <div class="col col-md-3">
+                            <div class="card bg-dark text-white custom-card">
+                                <a href="#" class="custom-card-link"></a>
+                                <img src="https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UX512.jpg" alt="" class="custom-card-image">
+                                <div class="custom-card-text">
+                                  <h5 class="card-title p-3">The Shawshank Redemption (1994)</h5>
+                                </div>
+                              </div>
+                        </div>
+                        <div class="col col-md-3">
+                            <div class="card bg-dark text-white custom-card">
+                                <a href="#" class="custom-card-link"></a>
+                                <img src="https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_UY512.jpg" alt="" class="custom-card-image">
+                                <div class="custom-card-text">
+                                  <h5 class="card-title p-3">The Godfather (1972)</h5>
+                                </div>
+                              </div>
+                        </div>
+                        <div class="col col-md-3">
+                            <div class="card bg-dark text-white custom-card">
+                                <a href="#" class="custom-card-link"></a>
+                                <img src="https://m.media-amazon.com/images/M/MV5BNzA5ZDNlZWMtM2NhNS00NDJjLTk4NDItYTRmY2EwMWZlMTY3XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_UX512.jpg" alt="" class="custom-card-image">
+                                <div class="custom-card-text">
+                                  <h5 class="card-title p-3">The Lord of the Rings: The Return of the King (2003)</h5>
+                                </div>
+                              </div>
+                        </div>
+                        <div class="col col-md-3">
+                            <div class="card bg-dark text-white custom-card">
+                                <a href="#" class="custom-card-link"></a>
+                                <img src="https://m.media-amazon.com/images/M/MV5BMTIzMDc4MzA2Ml5BMl5BanBnXkFtZTcwODU0MzA3MQ@@._V1_FMjpg_UX510_.jpg" alt="" class="custom-card-image">
+                                <div class="custom-card-text">
+                                  <h5 class="card-title p-3">Dark Knight - 2006</h5>
+                                </div>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="container mt-5 popular">
+                    <h4 class="slider-title" style="display: inline;">Aksiyon Filmleri</h4> 
+                    <a href="#" style="float: right; text-decoration: none; color:rgb(255, 146, 118);">Tümünü Gör</a>
+                    <div class="row mt-3">
+                        <div class="col col-md-3">
+                            <div class="card bg-dark text-white custom-card">
+                                <a href="#" class="custom-card-link"></a>
+                                <img src="https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UX512.jpg" alt="" class="custom-card-image">
+                                <div class="custom-card-text">
+                                  <h5 class="card-title p-3">The Shawshank Redemption (1994)</h5>
+                                </div>
+                              </div>
+                        </div>
+                        <div class="col col-md-3">
+                            <div class="card bg-dark text-white custom-card">
+                                <a href="#" class="custom-card-link"></a>
+                                <img src="https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_UY512.jpg" alt="" class="custom-card-image">
+                                <div class="custom-card-text">
+                                  <h5 class="card-title p-3">The Godfather (1972)</h5>
+                                </div>
+                              </div>
+                        </div>
+                        <div class="col col-md-3">
+                            <div class="card bg-dark text-white custom-card">
+                                <a href="#" class="custom-card-link"></a>
+                                <img src="https://m.media-amazon.com/images/M/MV5BNzA5ZDNlZWMtM2NhNS00NDJjLTk4NDItYTRmY2EwMWZlMTY3XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_UX512.jpg" alt="" class="custom-card-image">
+                                <div class="custom-card-text">
+                                  <h5 class="card-title p-3">The Lord of the Rings: The Return of the King (2003)</h5>
+                                </div>
+                              </div>
+                        </div>
+                        <div class="col col-md-3">
+                            <div class="card bg-dark text-white custom-card">
+                                <a href="#" class="custom-card-link"></a>
+                                <img src="https://m.media-amazon.com/images/M/MV5BMTIzMDc4MzA2Ml5BMl5BanBnXkFtZTcwODU0MzA3MQ@@._V1_FMjpg_UX510_.jpg" alt="" class="custom-card-image">
+                                <div class="custom-card-text">
+                                  <h5 class="card-title p-3">Dark Knight - 2006</h5>
+                                </div>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+          </div>
+      </section>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModal" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content bg-dark p-2">
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Kullanıcı Adı</label>
+                      <input type="text" class="form-control" id="exampleInputEmail1">
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleInputPassword1" class="form-label">Parola</label>
+                      <input type="password" class="form-control" id="exampleInputPassword1">
+                    </div>
+                    
+                    <button class="btn btn-dark" style="
+                    background-color:rgb(67, 68, 57);
+                    border: none;
+                    " type="submit"
+                    data-bs-toggle="modal" data-bs-target="#loginModal">Giriş Yap</button> 
+                  </form>
+            </div>
+        </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+</body>
+</html>
