@@ -57,10 +57,10 @@ def suggest_movie(liked_movies, unliked_movies, suggestion_number):
     return [unwatched_movies[i-1].id for i in suggesteds]
 
 
-gf1 = session.query(Movie).filter(Movie.id == 2).first()
-gf2 = session.query(Movie).filter(Movie.id == 4).first()
-gf3 = session.query(Movie).filter(Movie.id == 972).first()
-suggesteds = suggest_movie([gf1, gf2], [gf3], 10)
+def recommend_movies():
+    gf1 = session.query(Movie).filter(Movie.id == 2).first()
+    gf2 = session.query(Movie).filter(Movie.id == 4).first()
+    gf3 = session.query(Movie).filter(Movie.id == 972).first()
+    suggesteds = suggest_movie([gf1, gf2], [gf3], 10)
 
-for i in suggesteds:
-    print(session.query(Movie).filter(Movie.id == i).first().title)
+    return [session.query(Movie).filter(Movie.id == i).first() for i in suggesteds]
