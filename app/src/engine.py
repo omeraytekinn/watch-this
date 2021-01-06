@@ -4,6 +4,10 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
 from models import Movie
 
+engine = create_engine('sqlite:///app/src/myblog.db', echo=False)
+Session = sessionmaker(bind=engine)
+session = Session()
+
 
 def create_cosine_matrix(arr):
     cm = CountVectorizer().fit_transform(arr)
@@ -28,21 +32,31 @@ def combine_movie(movie):
     return " ".join([title, director, *actors, *genres])
 
 
-engine = create_engine('sqlite:///app/src/myblog.db', echo=False)
-Session = sessionmaker(bind=engine)
-session = Session()
+def combine_watched_movies(movies):
+    watched_movies = " ".join([combine_movie(movie) for movie in movies])
+    return watched_movies
 
-movies = session.query(Movie).filter(Movie.id < 5).all()
 
-unwatched = session.query(Movie).filter(Movie.id >= 5).all()
+def combine_unwatched_movies(movies):
+    return [combine_movie(movie) for movie in movies]
 
-watched = " ".join([combine_movie(i) for i in movies])
 
-other_movies = [combine_movie(i) for i in unwatched]
+def suggest_movie(watched_movies, suggestion_number):
+    watched_movies_ids = [i.id for i in watched_movies]
+    unwatched_movies = session.query(Movie).filter(
+        Movie.id.notin_(watched_movies_ids)).all()
+    combined_watched_movies = combine_watched_movies(watched_movies)
+    combined_unwatched_movies = combine_unwatched_movies(unwatched_movies)
+    cosine_matrix = create_cosine_matrix(
+        [combined_watched_movies, *combined_unwatched_movies])
+    suggesteds = get_similars(cosine_matrix, 0, suggestion_number)
+    return [unwatched_movies[i-1].id for i in suggesteds]
 
-matrix = create_cosine_matrix([watched, *other_movies])
 
-similars = get_similars(matrix, 0, 10)
+gf1 = session.query(Movie).filter(Movie.id == 2).first()
+gf2 = session.query(Movie).filter(Movie.id == 4).first()
 
-for i in similars:
-    print(unwatched[i-1].title)
+suggesteds = suggest_movie([gf1, gf2], 10)
+
+for i in suggesteds:
+    print(session.query(Movie).filter(Movie.id == i).first().title)
