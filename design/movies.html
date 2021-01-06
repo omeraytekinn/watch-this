@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>SPA</title>
+    <style>
+        body {
+            /*
+                Referans: http://snapyourcolors.com/Chip/NCkdVy
+                Kırmızı: rgb(123, 49, 30);
+                KAranlık: rgb(45, 45,46);
+                Aydınlık: rgb(121, 122, 121);
+                KAranlık: rgb(45, 45,46);
+                Yeşil: rgb(67, 68, 57);
+                Ekstra parlak: rgb(239, 240, 236);
+                 
+            */
+            /*background-color: rgb(123, 49, 30);*/
+            background-color: rgb(45, 45, 46);
+            color: rgb(239, 240, 236);
+
+        }
+
+        .navbar a {
+            color: rgb(169, 173, 169) !important;
+        }
+
+        .custom-card {
+            height: 300px;
+            overflow: hidden;
+            box-shadow: 0 0 3pt 2pt rgb(67, 68, 57);
+            outline: 0;
+            border: 1px solid rgb(67, 68, 57);
+        }
+
+        .custom-card-image {
+            width: 100%;
+            position: absolute;
+        }
+
+        .custom-card-text {
+            background-color: rgba(0, 0, 0, 0.5);
+            margin-bottom: 0;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            padding: 3px;
+            font-size: small;
+            height: 35%;
+        }
+
+        .custom-card-link {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 3000;
+        }
+
+        .custom-table {
+            border-radius: 100px;
+            color: rgb(239, 240, 236);
+            border: 3px solid rgb(67, 68, 57);
+        }
+
+        .custom-table th {
+            color: rgba(134, 136, 114);
+        }
+
+        .custom-table tr {
+            border-bottom: 3px solid rgb(67, 68, 57);
+        }
+
+        .custom-table td,
+        .custom-table th {
+            background-color: rgba(0, 0, 0, 0);
+        }
+
+        .pagination button {
+            background-color: rgb(67, 68, 57);
+            border: none;
+        } 
+        .list-group {
+        }
+        .list-group li {
+            background-color: rgba(0,0,0,0);
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: none; ">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">Watch-This</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">Anasayfa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="movies.html">Tüm Filmler</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <div class="btn-group" role="group" aria-label="Button group">
+
+                        <button class="btn btn-dark" style="
+                
+                background-color:rgb(67, 68, 57);
+                border: none;
+                " type="submit">Giriş Yap</button>
+                        <button class="btn btn-dark" style="
+                background-color: rgb(123, 49, 30);
+                border: none;
+                " type="submit">Kaydol</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <section class="main-section">
+        <div class="container">
+            <div class=" p-3 rounded mt-3" style="background-color: rgba(134, 136, 114, .5);">
+                <h3 class="text-capitalize">Tüm Filmler</h3>
+            </div>
+            <div class="list mt-5">
+                <form class="row">
+                    <div class="offset-5 col-5">
+                        <input type="text" class="form-control bg-dark border-dark text-light"
+                            placeholder="Aramak istediğiniz kelimeleri girin">
+                    </div>
+                    <div class="col-2">
+                        <button class="btn btn-dark form-control"
+                            style="background-color: rgb(123, 49, 30); border:none" type="button">Filtrele</button>
+                    </div>
+                </form>
+                <table class="table table-borderless table-light mt-3 custom-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Afiş</th>
+                            <th scope="col">Ad</th>
+                            <th scope="col">Tür</th>
+                            <th scope="col">Çıkış Tarihi</th>
+                            <th scope="col">Puan/Oy</th>
+                            <th scope="col">İşlem</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>
+                                <img src="https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UX512.jpg"
+                                    style="max-height: 120px;" alt="">
+                            </td>
+                            <td>Shawkank Redemption</td>
+                            <td>Drama</td>
+                            <td>1994</td>
+                            <td>9,3 / 2.329.241</td>
+                            <td>
+                                <button class="btn btn-dark" style="background-color: rgb(67, 68, 57); border:none;"
+                                    type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">+</button>
+                                <button class="btn btn-dark" style="background-color: rgb(90, 34, 18); border:none;"
+                                    type="button">-</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>
+                                <img src="https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_UY512.jpg"
+                                    style="max-height: 120px;" alt="">
+                            </td>
+                            <td>Shawkank Redemption</td>
+                            <td>Drama</td>
+                            <td>1994</td>
+                            <td>9,3 / 2.329.241</td>
+                            <td>
+                                <button class="btn btn-dark" style="background-color: rgb(67, 68, 57); border:none;"
+                                    type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">+</button>
+                                <button class="btn btn-dark" style="background-color: rgb(90, 34, 18); border:none;"
+                                    type="button">-</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>
+                                <img src="https://m.media-amazon.com/images/M/MV5BNzA5ZDNlZWMtM2NhNS00NDJjLTk4NDItYTRmY2EwMWZlMTY3XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_UX512.jpg"
+                                    style="max-height: 120px;" alt="">
+                            </td>
+                            <td>Shawkank Redemption</td>
+                            <td>Drama</td>
+                            <td>1994</td>
+                            <td>9,3 / 2.329.241</td>
+                            <td>
+                                <button class="btn btn-dark" style="background-color: rgb(67, 68, 57); border:none;"
+                                    type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">+</button>
+                                <button class="btn btn-dark" style="background-color: rgb(90, 34, 18); border:none;"
+                                    type="button">-</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <form class="row pagination mb-5">
+                    <div class="offset-6 col-4 align-content-end small" style="text-align: end;">
+                        1000 sonuç arasından 1-5 arası listeleniyor:
+                    </div>
+                    <div class="col-2 align-content-end" style="text-align: end;">
+                        <button class="btn btn-dark btn-sm" type="button"> << </button>
+                        <button class="btn btn-dark btn-sm" type="button"> < </button>
+                        <button class="btn btn-dark btn-sm" type="button"> 1 </button>
+                        <button class="btn btn-dark btn-sm" type="button"> > </button>
+                        <button class="btn btn-dark btn-sm" type="button"> >> </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+        <div class="modal-content bg-dark p-2">
+            <!--
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Shawkank Redemption</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            -->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-4">
+                        
+                        <img src="https://m.media-amazon.com/images/M/MV5BNzA5ZDNlZWMtM2NhNS00NDJjLTk4NDItYTRmY2EwMWZlMTY3XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_UX512.jpg"
+                        style="max-width: 100%; border-radius: 3px;" alt="">
+                    </div>
+                    <div class="col-8">
+                        <h4>Shawkank Redemption (1996)</h4>
+                        <hr>
+                        <ul class="list-group small">
+                            <li class="list-group-item">Yönetmen: Frank Darabont</li>
+                            <li class="list-group-item">Senaryo:  Stephen King, Frank Darabont</li>
+                            <li class="list-group-item">Tür:  Drama</li>
+                            <li class="list-group-item">Oyuncular: Tim Robbins, Morgan Freeman, Bob Gunton, William Sadler, Clancy Brown</li>
+                            <li class="list-group-item">Puan: 
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star-half-empty"></span>
+                                <span class="fa fa-star-o"></span>
+                            </li>
+                          </ul>
+
+                          <div class="row mt-4">
+                            <div class=" offset-6 col-6" style="text-align: end;">
+                                <button class="btn btn-dark" style="background-color: rgb(67, 68, 57); border:none;" type="button">Beğendim</button>
+                                <button class="btn btn-dark" type="button">Kapat</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

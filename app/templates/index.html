@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container">
+    <div class=" p-4 rounded mt-3" style="background-color: rgba(134, 136, 114, .5);">
+        <h1 class="display-6 text-capitalize">film öneri sistemine hoşgeldiniz </h1>
+        <p>
+            Öneriya başlamak için giriş yapınız. <br>
+            Yaptıklarımız:
+        </p>
+    
+        <ul>
+            <li> Lorem ipsum dolor sit amet consectetur adipisicing elit. </li>
+            <li> Lorem ipsum dolor sit amet consectetur adipisicing elit. </li>
+            <li> Lorem ipsum dolor sit amet consectetur adipisicing elit. </li>
+            <li> Lorem ipsum dolor sit amet consectetur adipisicing elit. </li>
+        </ul> 
+    </div>
+    
+     {% with title="Popüler Filmler", movies=popular_movies  %}
+         {% include 'components/movie_slider.html' %}
+     {% endwith %}
+     {% with title="Aksiyon Filmleri", movies=popular_movies  %}
+         {% include 'components/movie_slider.html' %}
+     {% endwith %}
+</div>
+{% endblock %}
