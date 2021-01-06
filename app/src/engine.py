@@ -32,12 +32,12 @@ def combine_movie(movie):
     return " ".join([title, director, *actors, *genres])
 
 
-def combine_watched_movies(movies):
+def combine_all(movies):
     watched_movies = " ".join([combine_movie(movie) for movie in movies])
     return watched_movies
 
 
-def combine_unwatched_movies(movies):
+def combine_list(movies):
     return [combine_movie(movie) for movie in movies]
 
 
@@ -45,8 +45,8 @@ def suggest_movie(watched_movies, suggestion_number):
     watched_movies_ids = [i.id for i in watched_movies]
     unwatched_movies = session.query(Movie).filter(
         Movie.id.notin_(watched_movies_ids)).all()
-    combined_watched_movies = combine_watched_movies(watched_movies)
-    combined_unwatched_movies = combine_unwatched_movies(unwatched_movies)
+    combined_watched_movies = combine_all(watched_movies)
+    combined_unwatched_movies = combine_list(unwatched_movies)
     cosine_matrix = create_cosine_matrix(
         [combined_watched_movies, *combined_unwatched_movies])
     suggesteds = get_similars(cosine_matrix, 0, suggestion_number)
