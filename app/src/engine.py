@@ -32,31 +32,35 @@ def combine_movie(movie):
     return " ".join([title, director, *actors, *genres])
 
 
-def combine_watched_movies(movies):
-    watched_movies = " ".join([combine_movie(movie) for movie in movies])
-    return watched_movies
+def combine_all(movies):
+    return " ".join([combine_movie(movie) for movie in movies])
 
 
-def combine_unwatched_movies(movies):
+def combine_list(movies):
     return [combine_movie(movie) for movie in movies]
 
 
-def suggest_movie(watched_movies, suggestion_number):
-    watched_movies_ids = [i.id for i in watched_movies]
+def suggest_movie(liked_movies, unliked_movies, suggestion_number):
+    liked_movies_ids = [i.id for i in liked_movies]
+    unliked_movies_ids = [i.id for i in unliked_movies]
+
     unwatched_movies = session.query(Movie).filter(
-        Movie.id.notin_(watched_movies_ids)).all()
-    combined_watched_movies = combine_watched_movies(watched_movies)
-    combined_unwatched_movies = combine_unwatched_movies(unwatched_movies)
+        Movie.id.notin_([*liked_movies_ids, *unliked_movies_ids])).all()
+
+    combined_liked_movies = combine_all(liked_movies)
+
+    combined_unwatched_movies = combine_list(unwatched_movies)
     cosine_matrix = create_cosine_matrix(
-        [combined_watched_movies, *combined_unwatched_movies])
+        [combined_liked_movies, *combined_unwatched_movies])
     suggesteds = get_similars(cosine_matrix, 0, suggestion_number)
+
     return [unwatched_movies[i-1].id for i in suggesteds]
 
 
 gf1 = session.query(Movie).filter(Movie.id == 2).first()
 gf2 = session.query(Movie).filter(Movie.id == 4).first()
-
-suggesteds = suggest_movie([gf1, gf2], 10)
+gf3 = session.query(Movie).filter(Movie.id == 972).first()
+suggesteds = suggest_movie([gf1, gf2], [gf3], 10)
 
 for i in suggesteds:
     print(session.query(Movie).filter(Movie.id == i).first().title)
