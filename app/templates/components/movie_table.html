@@ -26,12 +26,12 @@
             <tr>
                 <th scope="row">{{ index }}</th>
                 <td>
-                    <img src={{ movie.img }} style="max-height: 120px;" alt="">
+                    <img src={{ movie.poster }} style="max-height: 120px;" alt="">
                 </td>
-                <td>{{ movie.name }}</td>
+                <td>{{ movie.title }}</td>
                 <td>{{movie.genre}}</td>
                 <td>{{movie.year}}</td>
-                <td>{{movie.rate}} / {{movie.rating_count}}</td>
+                <td>{{movie.rate}}</td>
                 <td>
                     <button class="btn btn-dark" style="background-color: rgb(67, 68, 57); border:none;" type="button"
                         data-bs-toggle="modal" data-bs-target="#movieModal" onclick="dynamicModal(movies['{{ index }}']);">+</button>
