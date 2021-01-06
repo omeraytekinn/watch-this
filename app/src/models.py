@@ -37,7 +37,7 @@ class Movie(Base):
     scores = relationship("UserScore", back_populates="movie")
 
     def __repr__(self):
-        return "<User(title='%s', year='%s', imdb_rating='%s')>" % (
+        return "<Movie(title='%s', year='%s', imdb_rating='%s')>" % (
             self.title, self.year, self.imdb_rating)
 
 
