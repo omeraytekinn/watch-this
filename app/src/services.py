@@ -1,5 +1,7 @@
 import jwt
 import datetime
+from .engine import recommend_movie
+
 example_movies = {
     "1": {
     "title": "The Shawshank Redemption",
@@ -70,8 +72,26 @@ def check_login(token):
     return username
 
 def recommend_movies(user_id):
-    return example_movies
-
+    recommendeds = recommend_movie()
+    titles = [i.title for i in recommendeds]
+    years = [i.year for i in recommendeds]
+    posters = [i.poster for i in recommendeds]
+    genres = [[g.name for g in i.genres] for i in recommendeds ]
+    imdb_ratings = [i.imdb_rating for i in recommendeds]
+    casts = [[c.name for c in i.actors] for i in recommendeds]
+    directors = [i.director.name for i in recommendeds]
+    temp = dict()
+    for i, movie in enumerate(recommendeds):
+        temp[movie.id] = {"title": titles[i], 
+        "year": years[i], 
+        "poster": posters[i], 
+        "genre": genres[i], 
+        "imdb_rating": imdb_ratings[i], 
+        "cast": casts[i], 
+        "director": directors[i]
+        }
+    return temp
+    
 def rate_movie(user_id, movie_id, score):
     return False
 

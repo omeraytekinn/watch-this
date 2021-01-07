@@ -1,9 +1,10 @@
 from typing import ContextManager
 from flask.globals import session
 from jinja2.utils import contextfunction
-from app import app
-from flask import render_template, redirect, Response, request, make_response
-import app.src.services as services
+from flask import Flask, render_template, redirect, Response, request, make_response
+from .src import services
+
+app = Flask(__name__)
 
 @app.context_processor
 def inject_user():
@@ -19,13 +20,13 @@ def inject_user():
 @app.route('/')
 def index():
     token = request.cookies.get("token")
-    username = services.check_login(token)
+    user = services.check_login(token)
     recommended_movies = None
-    print(request.get_data())
-    if username:
-        recommended_movies = services.recommend_movies(username)
+    if user:
+        recommended_movies = services.recommend_movies(user.id)
     top_movies = services.get_movies(1, "rate")
     return render_template("index.html", recommended_movies=recommended_movies, top_movies=top_movies)
+
 
 @app.route('/rate-movie/<id>/<score>')
 def rate(id, score):
@@ -34,11 +35,12 @@ def rate(id, score):
         return Response("Successful!", status=200, mimetype='application/json')
     else:
         return Response("Unknown Error!", status=400, mimetype='application/json')
-    
+
 
 @app.route('/movies')
 def movies():
     return redirect("/movies/all/1", 302)
+
 
 @app.route('/movies/all/<page>')
 def all_movies(page):
@@ -51,9 +53,11 @@ def all_movies(page):
 def search_movies(name):
     return redirect("/search/" + name + "/1", 302)
 
+
 @app.route('/movies/search/<name>/<page>')
 def search_movies_paged(name, page):
     return render_template("movies.html")
+
 
 @app.route('/login', methods=["POST"])
 def login():
@@ -73,6 +77,7 @@ def logout():
     if token:
         resp.delete_cookie("token")
     return resp
+
 
 
 @app.route('/error')
