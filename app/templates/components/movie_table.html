@@ -40,8 +40,7 @@
                 <td>
                     <div class="btn-group" role="group" aria-label="Button group">
                         <button class="btn btn-dark" style="background-color: rgb(67, 68, 57); border:none;"
-                            type="button" data-bs-toggle="modal" data-bs-target="#movieModal"
-                            onclick="dynamicModal(
+                            type="button" data-bs-toggle="modal" data-bs-target="#movieModal" onclick="dynamicModal(
                                 `{{index}}`, 
                                 `{{movie.title}}`, 
                                 `{{movie.poster}}`, 
@@ -49,21 +48,11 @@
                                 `{{movie.director}}`, 
                                 `{{movie.genre}}`, 
                                 `{{movie.cast}}`, 
-                                `{{movie.imdb_rating}}`)">
-                            
+                                `{{movie.imdb_rating}}`
+                            );">
                             <i class="fa fa-search-plus" aria-hidden="true"></i>
                         </button>
-                        {% if is_login %}
-                        <button class="btn btn-dark" style="background-color: rgb(3, 54, 16); border:none;"
-                            type="button" onclick="rate_movie('{{index}}', 100);">
-                            <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                        </button>
-                        <button class="btn btn-dark" style="background-color: rgb(66, 17, 8); border:none;"
-                            type="button" onclick="rate_movie('{{index}}', 0);">
-                            <i class="fa fa-thumbs-down" aria-hidden="true"></i>
-                        </button>
 
-                        {% endif %}
                     </div>
                 </td>
             </tr>
@@ -88,6 +77,6 @@
 </div>
 
 <script>
-    $("#search-button").click(() => $(location).attr('href', '/movies/search/' + $("#search-bar").val() + '/2'))
+    $("#search-button").click(() => $(location).attr('href', '/movies/search/' + $("#search-bar").val() + '/1'))
     var movies = JSON.parse('{{ movies|tojson }}');
 </script>

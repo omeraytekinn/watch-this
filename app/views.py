@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, Response, request, make_response
 from .src import services
-
+import math
 app = Flask(__name__)
 
 
@@ -48,11 +48,9 @@ def movies():
 @app.route('/movies/all/<page>')
 def all_movies(page):
     movies = services.get_movies(int(page), "imdb_rating")
-    page=page
-    total_page=10
-    total_movies=50
+    total_movies = len(movies)
+    total_page = math.ceil(total_movies/5)
     return render_template("movies.html", movies=movies, page=page, total_page=total_page, total_movies=total_movies)
-
 
 
 @app.route('/movies/search/<name>')
@@ -63,9 +61,8 @@ def search_movies(name):
 @app.route('/movies/search/<name>/<page>')
 def search_movies_paged(name, page):
     movies = services.search_movie(name, int(page))
-    page=page
-    total_page=10
-    total_movies=50
+    total_movies = len(movies)
+    total_page = math.ceil(total_movies/5)
     return render_template("movies.html", movies=movies, page=page, total_page=total_page, total_movies=total_movies)
 
 

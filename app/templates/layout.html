@@ -119,7 +119,7 @@
     <script>
         function rate_movie(movie_id, score) {
             fetch("/rate-movie/" + movie_id + "/" + score)
-                .then(res => { if (res.status == 200) { alert("Başarılı"); document.location = "/" } else { alert("HATA") } })
+                .then(res => { if (res.status == 200) { alert("Başarılı"); document.location = document.location } else { alert("HATA") } })
                 .catch(e => alert("hata"))
         }
     </script>
