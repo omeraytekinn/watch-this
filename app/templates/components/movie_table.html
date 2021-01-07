@@ -53,11 +53,11 @@
                         </button>
 
                         {% if is_login %}
-                            <select onchange="rate_submit('{{index}}', this.value)" style="background-color:rgba(0,0,0,0); margin-left: 5px; width:40px; height:35px; color:white; border-radius:3px;" id="rate">
-                                {% for i in range(9) %}
-                                <option value={{i+1}}>{{i+1}}</option>
-                                {% endfor %}
-                            </select>
+                                <select onchange="rate_submit('{{index}}', this.value)" style="background-color:rgba(0,0,0,0); margin-left: 5px; width:40px; height:35px; color:white; border-radius:3px;" id="rate" selected="{{movie.user_score if movie.user_score else 0}}">
+                                    {% for i in range(9) %}
+                                    <option value={{i+1}}>{{i+1}}</option>
+                                    {% endfor %}
+                                </select>
                         {% endif %}
                 </td>
             </tr>
@@ -65,36 +65,38 @@
         </tbody>
     </table>
     <form class="row pagination mb-5">
-        <div class="offset-6 col-4 align-content-end small" style="text-align: end;">
+        <div class="offset-5 col-4 align-content-end small" style="text-align: end;">
             {{ total_movies }} sonuç arasından {{ (page-1)*5+1 }}-{{ (page)*5 }} arası listeleniyor:
         </div>
-        <div class="col-2 align-content-end" style="text-align: end;">
+        <div class="col-3 align-content-end" style="text-align: end;">
             <button id="first-btn" class="btn btn-dark btn-sm" type="button" onclick="firstPage()">
                 << </button>
                     <button id="prev-btn" class="btn btn-dark btn-sm" type="button" onclick="prevPage()">
                         < </button>
-                             1 ({{ total_page }})
+                             {{page}} ({{ total_page }})
                             <button id="next-btn" class="btn btn-dark btn-sm" type="button" onclick="nextPage()"> > </button>
                             <button id="last-btn" class="btn btn-dark btn-sm" type="button" onclick="lastPage()"> >> </button>
         </div>
     </form>
 </div>
+page:{{page}}
+total_page:{{total_page}}
+{{page}}
 <script>
     $("#search-button").click(() => $(location).attr('href', '/movies/search/' + $("#search-bar").val() + '/1'))
     var movies = JSON.parse('{{ movies|tojson }}');
     
-    if( "{{ page == total_page }}" ) {
+    if( "{{ 1 if page == total_page else 0 }}" == '1' ) {
         $("#next-btn").attr("disabled", "disabled");
         $("#last-btn").attr("disabled", "disabled");
     }
-    if("{{ page == 1 }}") {
+    if("{{ 1 if page == 1 else 0 }}" == '1') {
         $("#prev-btn").attr("disabled", "disabled");
         $("#first-btn").attr("disabled", "disabled");
     }
 
     function changePage(page) {
-        console.log(page)
-        //$(location).attr('href', page);
+        $(location).attr('href', page);
     }
     function firstPage() {
         changePage(1);

@@ -25,7 +25,7 @@
                             <div class="col-6 form" style="display: flex;">
                                 <select style="background-color: black; width:40%; color:white; border-radius:3px;"
                                     id="rate">
-                                    {% for i in range(9) %}
+                                    {% for i in range(10) %}
                                     <option value={{i+1}}>{{i+1}}</option>
                                     {% endfor %}
                                 </select>
@@ -43,6 +43,7 @@
         </div>
     </div>
 </div>
+
 <script defer>
     function dynamicModal(id, title, poster, year, director, genre, cast, imdb_rating) {
 
