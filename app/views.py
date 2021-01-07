@@ -24,7 +24,7 @@ def index():
     if user:
         is_login = True
         recommended_movies = services.recommend_movies(user.id)
-    top_movies = services.get_movies(1, "imdb_rating")
+    top_movies = services.get_movies(1, "imdb_rating", 4)
     return render_template("index.html", is_login=is_login, recommended_movies=recommended_movies, top_movies=top_movies)
 
 
@@ -47,7 +47,7 @@ def movies():
 
 @app.route('/movies/all/<page>')
 def all_movies(page):
-    movies = services.get_movies(int(page), "imdb_rating")
+    movies = services.get_movies(int(page), "imdb_rating", 5)
     total_movies = len(movies)
     total_page = math.ceil(total_movies/5)
     return render_template("movies.html", movies=movies, page=page, total_page=total_page, total_movies=total_movies)
