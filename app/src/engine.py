@@ -61,7 +61,7 @@ def recommend_movie():
     gf1 = session.query(Movie).filter(Movie.id == 2).first()
     gf2 = session.query(Movie).filter(Movie.id == 4).first()
     gf3 = session.query(Movie).filter(Movie.id == 972).first()
-    suggesteds = suggest_movie([gf1, gf2], [gf3], 10)
+    suggesteds = suggest_movie([gf1, gf2], [], 10)
 
     return [session.query(Movie).filter(Movie.id == i).first() for i in suggesteds]
 

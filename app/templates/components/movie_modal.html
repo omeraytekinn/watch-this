@@ -24,11 +24,11 @@
                             {% if is_login %}
                             <div class="col-6">
                                 <button class="btn btn-dark px-4" style="background-color: rgb(3, 54, 16); border:none;"
-                                    type="button">
+                                    type="button" id="rate-up">
                                     <i class="fa fa-thumbs-up" aria-hidden="true"></i>
                                 </button>
                                 <button class="btn btn-dark px-4" style="background-color: rgb(66, 17, 8); border:none;"
-                                    type="button">
+                                    type="button" id="rate-down">
                                     <i class="fa fa-thumbs-down" aria-hidden="true"></i>
                                 </button>
                             </div>
@@ -50,5 +50,11 @@
         $("#genre").html("<b>Tür: </b>" + movie.genre);
         $("#actors").html("<b>Oyuncular: </b>" + movie.cast);
         $("#rating").html("<b>Puan: </b>" + movie.imdb_rating);
+        $("#rate-up").click(() => {
+            rate_movie(movie.title, 100);
+        });
+        $("#rate-down").click(() => {
+            rate_movie(movie.title, 0);
+        });
     }
 </script>
