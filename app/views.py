@@ -1,6 +1,3 @@
-from typing import ContextManager
-from flask.globals import session
-from jinja2.utils import contextfunction
 from flask import Flask, render_template, redirect, Response, request, make_response
 from .src import services
 import math
@@ -10,11 +7,11 @@ app = Flask(__name__)
 @app.context_processor
 def inject_user():
     token = request.cookies.get("token")
-    auth_username = services.check_login(token)
+    user = services.check_login(token)
     is_login = False
-    if auth_username:
+    if user:
         is_login = True
-        return dict(is_login=is_login, username=auth_username)
+        return dict(is_login=is_login, username=user.name)
     return dict(is_login=is_login)
 
 
@@ -31,14 +28,13 @@ def index():
     return render_template("index.html", is_login=is_login, recommended_movies=recommended_movies, top_movies=top_movies)
 
 
-@app.route('/rate-movie/<id>/<score>')
-def rate(id, score):
+@app.route('/rate-movie/<movie_id>/<score>')
+def rate(movie_id, score):
     token = request.cookies.get("token")
-    print(token)
     user = services.check_login(token)
     result = None
     if user:
-        result = services.rate_movie(user.id, id, score)
+        result = services.rate_movie(user.id, movie_id, score)
         if result:
             return Response(status=200, mimetype='application/json')
     return Response(status=400, mimetype='application/json')
@@ -79,7 +75,7 @@ def login():
         resp = make_response(redirect("/", 302))
         resp.set_cookie("token", jwt)
         return resp
-    resp = make_response(redirect("/", 401))
+    resp = make_response(redirect("/", 302))
     return resp
 
 

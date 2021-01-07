@@ -89,13 +89,12 @@ def check_login(token):
         username = decoded['username']
         expiration_time = datetime.datetime.fromtimestamp(decoded['exp'])
     except:
-        return False
+        return None
     user = session.query(User).filter(User.username == username).first()
     if not user:
-        return False
-    now = datetime.datetime.now()
+        return None
     if datetime.datetime.now() > expiration_time:
-        return False
+        return None
     return user
 
 
