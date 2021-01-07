@@ -42,7 +42,7 @@ def movies_to_dict(movies):
     return temp
 
 
-def get_movies(page, sortby, asc=False):
+def get_movies(page, sortby, count, asc=False):
     if asc:
         s = asc
     else:
@@ -53,11 +53,10 @@ def get_movies(page, sortby, asc=False):
         "duration",
         "imdb_rating",
     ]
-    list_count = 4
     if sortby not in sorts:
         return False
     movies = session.query(Movie).order_by(
-        s(sortby)).all()[list_count*(page-1):list_count*(page)]
+        s(sortby)).all()[count*(page-1):count*(page)]
     movies = movies_to_dict(movies)
     return movies
 
