@@ -3,7 +3,7 @@ import datetime
 from .engine import recommend_movie
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from .models import User, Movie
+from .models import User, Movie, UserScore
 from werkzeug.security import check_password_hash, generate_password_hash
 
 
@@ -129,6 +129,18 @@ def recommend_movies(user_id):
 
 
 def rate_movie(user_id, movie_id, score):
+    user = session.query(User).filter_by(id=user_id).first()
+    movie = session.query(Movie).filter_by(id=movie_id).first()
+    if not user or not movie:
+        return False
+    user_score = session.query(UserScore).filter_by(
+        user_id=user_id, movie_id=movie_id).first()
+    if user_score:
+        user_score.score = score
+    else:
+        user_score = UserScore(movie=movie, user=user, score=score)
+    session.add(user_score)
+    session.commit()
     return True
 
 
