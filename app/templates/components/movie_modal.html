@@ -18,6 +18,7 @@
                             <li class="list-group-item" id="genre"></li>
                             <li class="list-group-item" id="actors"></li>
                             <li class="list-group-item" id="rating"></li>
+                            <li class="list-group-item" id="user_rating"></li>
                         </ul>
 
                         <div class="row mt-4" style="margin-left: 5px;">
@@ -45,7 +46,7 @@
 </div>
 
 <script defer>
-    function dynamicModal(id, title, poster, year, director, genre, cast, imdb_rating) {
+    function dynamicModal(id, title, poster, year, director, genre, cast, imdb_rating, user_score) {
 
         $("#banner").attr("src", poster);
         $("#movie_name").html(title + " (" + year + ")");
@@ -53,6 +54,7 @@
         $("#genre").html("<b>Tür: </b>" + genre.toLocaleString());
         $("#actors").html("<b>Oyuncular: </b>" + cast.toLocaleString());
         $("#rating").html("<b>Puan: </b>" + imdb_rating);
+        $("#user_rating").html("<b>Sizin Puanınız: </b>" + (user_score ? user_score : "Henüz puan vermemişsiniz"));
         $("#rate-submit").click(() => {
             rate_movie(id, $("#rate").val());
         });
