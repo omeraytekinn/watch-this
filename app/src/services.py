@@ -1,11 +1,10 @@
 import jwt
 import datetime
 from .engine import recommend_movie
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, asc, desc
 from sqlalchemy.orm import sessionmaker
 from .models import User, Movie, UserScore
 from werkzeug.security import check_password_hash, generate_password_hash
-
 
 engine = create_engine('sqlite:///app/src/myblog.db', echo=False)
 Session = sessionmaker(bind=engine)
@@ -55,7 +54,32 @@ def search_movie(name, page):
     return example_movies
 
 
-def get_movies(page, sortby):
+def movies_to_dict(movies):
+    titles = [i.title for i in movies]
+    years = [i.year for i in movies]
+    posters = [i.poster for i in movies]
+    genres = [[g.name for g in i.genres] for i in movies]
+    imdb_ratings = [i.imdb_rating for i in movies]
+    casts = [[c.name for c in i.actors] for i in movies]
+    directors = [i.director.name for i in movies]
+    temp = dict()
+    for i, movie in enumerate(movies):
+        temp[movie.id] = {"title": titles[i],
+                          "year": years[i],
+                          "poster": posters[i],
+                          "genre": genres[i],
+                          "imdb_rating": imdb_ratings[i],
+                          "cast": casts[i],
+                          "director": directors[i]
+                          }
+    return temp
+
+
+def get_movies(page, sortby, asc=False):
+    if asc:
+        s = asc
+    else:
+        s = desc
     sorts = [
         "title",
         "year",
@@ -64,7 +88,9 @@ def get_movies(page, sortby):
     ]
     if sortby not in sorts:
         return False
-    movies = session.query(Movie).order_by(sortby).all()[10*(page-1):10*(page)]
+    movies = session.query(Movie).order_by(
+        s(sortby)).all()[10*(page-1):10*(page)]
+    movies = movies_to_dict(movies)
     return movies
 
 
@@ -108,24 +134,8 @@ def check_login(token):
 
 def recommend_movies(user_id):
     recommendeds = recommend_movie()
-    titles = [i.title for i in recommendeds]
-    years = [i.year for i in recommendeds]
-    posters = [i.poster for i in recommendeds]
-    genres = [[g.name for g in i.genres] for i in recommendeds]
-    imdb_ratings = [i.imdb_rating for i in recommendeds]
-    casts = [[c.name for c in i.actors] for i in recommendeds]
-    directors = [i.director.name for i in recommendeds]
-    temp = dict()
-    for i, movie in enumerate(recommendeds):
-        temp[movie.id] = {"title": titles[i],
-                          "year": years[i],
-                          "poster": posters[i],
-                          "genre": genres[i],
-                          "imdb_rating": imdb_ratings[i],
-                          "cast": casts[i],
-                          "director": directors[i]
-                          }
-    return temp
+    recommendeds = movies_to_dict(recommendeds)
+    return recommendeds
 
 
 def rate_movie(user_id, movie_id, score):
