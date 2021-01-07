@@ -32,12 +32,11 @@ def index():
 
 @app.route('/rate-movie/<id>/<score>')
 def rate(id, score):
-    
     token = request.cookies.get("token")
     username = services.check_login(token)
     result = None
     if username:
-        result =  services.rate_movie(username, id, score)
+        result = services.rate_movie(username, id, score)
     if result:
         return Response("Successful!", status=200, mimetype='application/json')
     else:
@@ -92,3 +91,17 @@ def logout():
 @app.route('/error')
 def error():
     return "Hatalı işlem"
+
+
+@app.route('/register', methods=['POST'])
+def register():
+    name = request.form['name']
+    username = request.form['username']
+    email = request.form['email']
+    password = request.form['password']
+    r = services.register(name, username, email, password)
+    if r == 1 or r == 2:
+        resp = make_response(redirect("/", 302))
+        return resp
+    resp = make_response(redirect("/", 302))
+    return resp
