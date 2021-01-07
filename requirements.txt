@@ -11,11 +11,6 @@ chardet==4.0.0
 click==7.1.2
 cryptography==3.2.1
 Flask==1.1.2
-idna==2.10
-ipykernel==5.4.2
-ipython==7.19.0
-ipython-genutils==0.2.0
-ipywidgets==7.6.2
 itsdangerous==1.1.0
 jedi==0.18.0
 Jinja2==2.11.2
