@@ -84,7 +84,7 @@ class UserScore(Base):
 
     def __repr__(self):
         return "<UserScore(user_name='%s', movie_name='%s', user_score='%s')>" % (
-            self.user.name, self.movie.name, self.score)
+            self.user.name, self.movie.title, self.score)
 
 
 class User(Base):
