@@ -1,8 +1,8 @@
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, and_
 from sqlalchemy.orm import sessionmaker
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
-from .models import Movie
+from .models import Movie, UserScore, User
 
 engine = create_engine('sqlite:///app/src/myblog.db', echo=False)
 Session = sessionmaker(bind=engine)
@@ -57,11 +57,16 @@ def suggest_movie(liked_movies, unliked_movies, suggestion_number):
     return [unwatched_movies[i-1].id for i in suggesteds]
 
 
-def recommend_movie():
-    gf1 = session.query(Movie).filter(Movie.id == 2).first()
-    gf2 = session.query(Movie).filter(Movie.id == 4).first()
-    gf3 = session.query(Movie).filter(Movie.id == 972).first()
-    suggesteds = suggest_movie([gf1, gf2], [], 10)
+def recommend_movie(user_id):
+    user = session.query(User).filter(User.id == user_id).first()
+    if not user:
+        return False
+    likeds = [i.movie for i in session.query(UserScore).filter(
+        and_(UserScore.user_id == user_id, UserScore.score > 6)).all()]
+    unlikeds = [i.movie for i in session.query(UserScore).filter(
+        and_(UserScore.user_id == user_id, UserScore.score <= 6)).all()]
+
+    suggesteds = suggest_movie(likeds, unlikeds, 4)
 
     return [session.query(Movie).filter(Movie.id == i).first() for i in suggesteds]
 

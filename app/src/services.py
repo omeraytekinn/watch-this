@@ -6,7 +6,8 @@ from sqlalchemy.orm import sessionmaker
 from .models import User, Movie, UserScore
 from werkzeug.security import check_password_hash, generate_password_hash
 
-engine = create_engine('sqlite:///app/src/myblog.db', echo=False)
+engine = create_engine('sqlite:///app/src/myblog.db',
+                       echo=False, connect_args={'check_same_thread': False})
 Session = sessionmaker(bind=engine)
 session = Session()
 
@@ -134,7 +135,7 @@ def check_login(token):
 
 
 def recommend_movies(user_id):
-    recommendeds = recommend_movie()
+    recommendeds = recommend_movie(user_id)
     recommendeds = movies_to_dict(recommendeds)
     return recommendeds
 
