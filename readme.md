@@ -1,6 +1,8 @@
 # Installation
 
-```git clone https://github.com/omeraytekinn/watch-this.git```
+```
+git clone https://github.com/omeraytekinn/watch-this.git
+```
 
 # Run
 
