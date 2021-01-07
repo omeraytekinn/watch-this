@@ -65,13 +65,13 @@ def movies_to_dict(movies):
     directors = [i.director.name for i in movies]
     temp = dict()
     for i, movie in enumerate(movies):
-        temp[movie.id] = {"title": titles[i],
-                          "year": years[i],
-                          "poster": posters[i],
-                          "genre": genres[i],
-                          "imdb_rating": imdb_ratings[i],
-                          "cast": casts[i],
-                          "director": directors[i]
+        temp[movie.id] = {'title': titles[i],
+                          'year': years[i],
+                          'poster': posters[i],
+                          'genre': genres[i],
+                          'imdb_rating': imdb_ratings[i],
+                          'cast': casts[i],
+                          'director': directors[i]
                           }
     return temp
 
