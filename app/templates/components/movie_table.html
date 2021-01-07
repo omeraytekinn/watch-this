@@ -40,12 +40,10 @@
                         <i class="fa fa-search-plus" aria-hidden="true"></i>
                         </button>
                         {% if is_login %}
-                        <button class="btn btn-dark" style="background-color: rgb(3, 54, 16); border:none;"
-                            type="button">
+                        <button class="btn btn-dark" style="background-color: rgb(3, 54, 16); border:none;" type="button" onclick="rate_movie('{{index}}', 100);">
                             <i class="fa fa-thumbs-up" aria-hidden="true"></i>
                         </button>
-                        <button class="btn btn-dark" style="background-color: rgb(66, 17, 8); border:none;"
-                            type="button">
+                        <button class="btn btn-dark" style="background-color: rgb(66, 17, 8); border:none;" type="button" onclick="rate_movie('{{index}}', 0);">
                             <i class="fa fa-thumbs-down" aria-hidden="true"></i>
                         </button>
 

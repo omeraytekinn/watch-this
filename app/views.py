@@ -20,17 +20,23 @@ def inject_user():
 @app.route('/')
 def index():
     token = request.cookies.get("token")
-    user = services.check_login(token)
+    username = services.check_login(token)
     recommended_movies = None
-    if user:
-        recommended_movies = services.recommend_movies(user.id)
+    if username:
+        pass
+        #recommended_movies = services.recommend_movies(username)
     top_movies = services.get_movies(1, "rate")
     return render_template("index.html", recommended_movies=recommended_movies, top_movies=top_movies)
 
 
 @app.route('/rate-movie/<id>/<score>')
 def rate(id, score):
-    result = services.rate_movie(id, score)
+    
+    token = request.cookies.get("token")
+    username = services.check_login(token)
+    result = None
+    if username:
+        result =  services.rate_movie(username, id, score)
     if result:
         return Response("Successful!", status=200, mimetype='application/json')
     else:
