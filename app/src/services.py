@@ -1,3 +1,5 @@
+import jwt
+import datetime
 example_movies = {
     "1": {
     "title": "The Shawshank Redemption",
@@ -35,6 +37,7 @@ example_movies = {
     "cast": [],
     "director": ""
 }}
+SECRET_KEY = "secret"
 
 def search_movie(name, page):
     return example_movies
@@ -43,16 +46,36 @@ def get_movies(page, sortby):
     return example_movies
 
 def login(username, password):
-    return True
+    # TODO: veritabanı doğrulaması eklenecek
+    token = create_token(username)
+    return token
 
 def register(username, password):
-    return username
+    # TODO: veritabanı işlemleri
+    token = create_token(username)
+    return token
 
-def check_login(request):
-    return False
+def check_login(token):
+    try:
+        decoded = jwt.decode(token, SECRET_KEY, algorithms=['HS256'])
+        username = decoded['username']
+        expiration_time = datetime.datetime.fromtimestamp(decoded['exp'])
+    except:
+        return None
+    
+    now = datetime.datetime.now()
+    if datetime.datetime.now() > expiration_time:
+        return None
+    
+    return username
 
 def recommend_movies(user_id):
     return example_movies
 
 def rate_movie(user_id, movie_id, score):
     return False
+
+def create_token(username):
+    expiration_time = datetime.datetime.now() + datetime.timedelta(days=1)
+    token = jwt.encode({"username": username, "exp": expiration_time.timestamp()}, SECRET_KEY, algorithm="HS256")
+    return token

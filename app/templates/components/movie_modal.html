@@ -1,11 +1,13 @@
-    <!-- Modal -->
-    <div class="modal fade" id="movieModal" tabindex="-1" aria-labelledby="movieModal" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+<!-- Modal -->
+<div class="modal fade" id="movieModal" tabindex="-1" aria-labelledby="movieModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content bg-dark p-2">
             <div class="modal-body">
+                <button class="btn btn-close btn-close-white " data-bs-dismiss="modal" aria-label="Close"
+                    style="position:absolute; top:0; right:0; z-index:3000" type="button"></button>
                 <div class="row">
                     <div class="col-4">
-                        <img id="banner" alt="" style="max-width: 100%; border-radius: 3px;" >
+                        <img id="banner" alt="" style="max-width: 100%; border-radius: 3px;">
                     </div>
                     <div class="col-8">
                         <h4 id="movie_name"></h4>
@@ -16,27 +18,37 @@
                             <li class="list-group-item" id="genre"></li>
                             <li class="list-group-item" id="actors"></li>
                             <li class="list-group-item" id="rating"></li>
-                          </ul>
+                        </ul>
 
-                          <div class="row mt-4">
-                            <div class=" offset-6 col-6" style="text-align: end;">
-                                <button class="btn btn-dark" style="background-color: rgb(67, 68, 57); border:none;" type="button">Beğendim</button>
-                                <button class="btn btn-dark" type="button">Kapat</button>
+                        <div class="row mt-4" style="margin-left: 5px;">
+                            {% if is_login %}
+                            <div class="col-6">
+                                <button class="btn btn-dark px-4" style="background-color: rgb(3, 54, 16); border:none;"
+                                    type="button">
+                                    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                </button>
+                                <button class="btn btn-dark px-4" style="background-color: rgb(66, 17, 8); border:none;"
+                                    type="button">
+                                    <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                                </button>
                             </div>
+                            {% else %}
+                            Oy vermek için giriş yapmanız gerekmektedir.
+                            {% endif %}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        </div>
     </div>
-    <script defer>
-        function dynamicModal(movie) {
-            $("#banner").attr("src",movie.poster);
-            $("#movie_name").html(movie.title + " ("+movie.year+")");
-            $("#director").html("<b>Yönetmen: </b>" + movie.director);
-            $("#genre").html("<b>Tür: </b>" + movie.genre);
-            $("#actors").html("<b>Oyuncular: </b>" + movie.cast);
-            $("#rating").html("<b>Puan: </b>" + movie.imdb_rating);
-        }
-    </script>
+</div>
+<script defer>
+    function dynamicModal(movie) {
+        $("#banner").attr("src", movie.poster);
+        $("#movie_name").html(movie.title + " (" + movie.year + ")");
+        $("#director").html("<b>Yönetmen: </b>" + movie.director);
+        $("#genre").html("<b>Tür: </b>" + movie.genre);
+        $("#actors").html("<b>Oyuncular: </b>" + movie.cast);
+        $("#rating").html("<b>Puan: </b>" + movie.imdb_rating);
+    }
+</script>

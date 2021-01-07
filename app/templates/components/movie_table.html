@@ -33,10 +33,24 @@
                 <td>{{movie.year}}</td>
                 <td>{{movie.rate}}</td>
                 <td>
-                    <button class="btn btn-dark" style="background-color: rgb(67, 68, 57); border:none;" type="button"
-                        data-bs-toggle="modal" data-bs-target="#movieModal" onclick="dynamicModal(movies['{{ index }}']);">+</button>
-                    <button class="btn btn-dark" style="background-color: rgb(90, 34, 18); border:none;"
-                        type="button">-</button>
+                    <div class="btn-group" role="group" aria-label="Button group">
+                        <button class="btn btn-dark" style="background-color: rgb(67, 68, 57); border:none;"
+                            type="button" data-bs-toggle="modal" data-bs-target="#movieModal"
+                            onclick="dynamicModal(movies['{{ index }}']);">
+                        <i class="fa fa-search-plus" aria-hidden="true"></i>
+                        </button>
+                        {% if is_login %}
+                        <button class="btn btn-dark" style="background-color: rgb(3, 54, 16); border:none;"
+                            type="button">
+                            <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                        </button>
+                        <button class="btn btn-dark" style="background-color: rgb(66, 17, 8); border:none;"
+                            type="button">
+                            <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                        </button>
+
+                        {% endif %}
+                    </div>
                 </td>
             </tr>
             {% endfor %}
