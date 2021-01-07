@@ -4,7 +4,7 @@ import csv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 import pandas as pd
-from .models import Movie, Actor, Director, Genre, create_db
+from models import Movie, Actor, Director, Genre, create_db
 import os
 import re
 
