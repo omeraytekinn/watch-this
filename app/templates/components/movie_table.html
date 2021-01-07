@@ -22,6 +22,7 @@
             </tr>
         </thead>
         <tbody>
+        
             {% for index, movie in movies.items() %}
             <tr>
                 <th scope="row">{{ index }}</th>
@@ -29,7 +30,11 @@
                     <img src={{ movie.poster }} style="max-height: 120px;" alt="">
                 </td>
                 <td>{{ movie.title }}</td>
-                <td>{{movie.genre}}</td>
+                <td>
+                    {% for val in movie.genre %}
+                        {{val}}
+                    {% endfor %}
+                </td>
                 <td>{{movie.year}}</td>
                 <td>{{movie.rate}}</td>
                 <td>
@@ -56,7 +61,8 @@
     </table>
     <form class="row pagination mb-5">
         <div class="offset-6 col-4 align-content-end small" style="text-align: end;">
-            1000 sonuç arasından 1-5 arası listeleniyor:
+            {% set page = page | int %}
+            {{ total_movies }} sonuç arasından {{ (page-1)*5+1 }}-{{ (page)*5 }} arası listeleniyor:
         </div>
         <div class="col-2 align-content-end" style="text-align: end;">
             <button class="btn btn-dark btn-sm" type="button">
@@ -72,12 +78,5 @@
 
 <script>
     $("#search-button").click(() => $(location).attr('href', '/movies/search/' + $("#search-bar").val() + '/1'))
-    $("#search-bar").keypress(function (event) {
-        var keycode = (event.keyCode ? event.keyCode : event.which);
-        if (keycode == '13') {
-            console.log("sad")
-            document.location = '/movies/search/' + $("#search-bar").val() + '/1'
-        }
-    });
     var movies = JSON.parse('{{ movies|tojson }}');
 </script>
