@@ -11,48 +11,14 @@ engine = create_engine('sqlite:///app/src/myblog.db',
 Session = sessionmaker(bind=engine)
 session = Session()
 
-example_movies = {
-    "1": {
-        "title": "The Shawshank Redemption",
-        "year": 1994,
-        "poster": "https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UX512.jpg",
-        "genre": "Drama",
-        "imdb_rating": 9.3,
-        "cast": [],
-        "director": "",
-    },
-    "2": {
-        "title": "The Godfather",
-        "year": 1972,
-        "poster": "https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_UY512.jpg",
-        "genre": ["Crime", "Drama"],
-        "imdb_rating": 9.3,
-        "cast": [],
-        "director": "",
-    },
-    "3": {
-        "title": "The Lord of the Rings: The Return of the King",
-        "year": 2003,
-        "poster": "https://m.media-amazon.com/images/M/MV5BNzA5ZDNlZWMtM2NhNS00NDJjLTk4NDItYTRmY2EwMWZlMTY3XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_UX512.jpg",
-        "genre": ["Crime", "Drama"],
-        "imdb_rating": 9.3,
-        "cast": [],
-        "director": ""
-    },
-    "4": {
-        "title": "The Dark Knight",
-        "year": 2006,
-        "poster": "https://m.media-amazon.com/images/M/MV5BMTIzMDc4MzA2Ml5BMl5BanBnXkFtZTcwODU0MzA3MQ@@._V1_FMjpg_UX510_.jpg",
-        "genre": ["Crime", "Drama"],
-        "imdb_rating": 9.3,
-        "cast": [],
-        "director": ""
-    }}
 SECRET_KEY = "secret"
 
 
 def search_movie(name, page):
-    return example_movies
+    print(name)
+    movies = session.query(Movie).filter(Movie.title.contains(name)).all()
+    movies = movies_to_dict(movies[5*(page-1):5*(page)])
+    return movies
 
 
 def movies_to_dict(movies):

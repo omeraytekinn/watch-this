@@ -51,20 +51,19 @@ def movies():
 
 @app.route('/movies/all/<page>')
 def all_movies(page):
-    # TODO: Burada page numarasına göre sıradaki filmler çekilecek
-    # movies = [{...},{...},...] yapısında bir değişkene konulacak
-    movies = services.get_movies(page, "imdb_rating")
+    movies = services.get_movies(int(page), "imdb_rating")
     return render_template("movies.html", movies=movies)
 
 
 @app.route('/movies/search/<name>')
 def search_movies(name):
-    return redirect("/search/" + name + "/1", 302)
+    return redirect("/movies/search/" + name + "/1", 302)
 
 
 @app.route('/movies/search/<name>/<page>')
 def search_movies_paged(name, page):
-    return render_template("movies.html")
+    movies = services.search_movie(name, int(page))
+    return render_template("movies.html", movies=movies)
 
 
 @app.route('/login', methods=["POST"])

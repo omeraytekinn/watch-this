@@ -8,15 +8,7 @@
             <h1 class="display-6 text-capitalize">film öneri sistemine hoşgeldiniz </h1>
             <p>
                 Öneriya başlamak için giriş yapınız. <br>
-                Yaptıklarımız:
             </p>
-        
-            <ul>
-                <li> Lorem ipsum dolor sit amet consectetur adipisicing elit. </li>
-                <li> Lorem ipsum dolor sit amet consectetur adipisicing elit. </li>
-                <li> Lorem ipsum dolor sit amet consectetur adipisicing elit. </li>
-                <li> Lorem ipsum dolor sit amet consectetur adipisicing elit. </li>
-            </ul> 
         </div>
         {% else %}
         <h5 class=" text-capitalize">film öneri sistemine hoşgeldiniz {{username}} </h5>
@@ -25,15 +17,15 @@
     </div>
 
     {% if is_login %}
-        {% with title="Sizin İçin Önerdiğimiz Filmler", movies=recommended_movies  %}
-            {% include 'components/movie_slider.html' %}
-        {% endwith %}
+    {% with title="Sizin İçin Önerdiğimiz Filmler", movies=recommended_movies  %}
+    {% include 'components/movie_slider.html' %}
+    {% endwith %}
     {% endif %}
     {% with title="Popüler Filmler", movies=top_movies  %}
-        {% include 'components/movie_slider.html' %}
+    {% include 'components/movie_slider.html' %}
     {% endwith %}
-    {% with title="Aksiyon Filmleri", movies=top_movies  %}
+    <!-- {% with title="Aksiyon Filmleri", movies=top_movies  %}
         {% include 'components/movie_slider.html' %}
-    {% endwith %}
+    {% endwith %} -->
 </div>
 {% endblock %}

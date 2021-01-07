@@ -1,12 +1,12 @@
 <div class="list mt-5">
     <form class="row">
         <div class="offset-5 col-5">
-            <input type="text" class="form-control bg-dark border-dark text-light"
+            <input id="search-bar" type="text" class="form-control bg-dark border-dark text-light"
                 placeholder="Aramak istediğiniz kelimeleri girin">
         </div>
         <div class="col-2">
-            <button class="btn btn-dark form-control" style="background-color: rgb(123, 49, 30); border:none"
-                type="button">Filtrele</button>
+            <button id="search-button" class="btn btn-dark form-control"
+                style="background-color: rgb(123, 49, 30); border:none" type="button">Filtrele</button>
         </div>
     </form>
     <table class="table table-borderless table-light mt-3 custom-table">
@@ -37,13 +37,15 @@
                         <button class="btn btn-dark" style="background-color: rgb(67, 68, 57); border:none;"
                             type="button" data-bs-toggle="modal" data-bs-target="#movieModal"
                             onclick="dynamicModal(movies['{{ index }}']);">
-                        <i class="fa fa-search-plus" aria-hidden="true"></i>
+                            <i class="fa fa-search-plus" aria-hidden="true"></i>
                         </button>
                         {% if is_login %}
-                        <button class="btn btn-dark" style="background-color: rgb(3, 54, 16); border:none;" type="button" onclick="rate_movie('{{index}}', 100);">
+                        <button class="btn btn-dark" style="background-color: rgb(3, 54, 16); border:none;"
+                            type="button" onclick="rate_movie('{{index}}', 100);">
                             <i class="fa fa-thumbs-up" aria-hidden="true"></i>
                         </button>
-                        <button class="btn btn-dark" style="background-color: rgb(66, 17, 8); border:none;" type="button" onclick="rate_movie('{{index}}', 0);">
+                        <button class="btn btn-dark" style="background-color: rgb(66, 17, 8); border:none;"
+                            type="button" onclick="rate_movie('{{index}}', 0);">
                             <i class="fa fa-thumbs-down" aria-hidden="true"></i>
                         </button>
 
@@ -71,5 +73,6 @@
 </div>
 
 <script>
+    $("#search-button").click(() => $(location).attr('href', '/movies/search/' + $("#search-bar").val() + '/1'))
     var movies = JSON.parse('{{ movies|tojson }}');
 </script>
