@@ -48,13 +48,15 @@
 </div>
 
 <script defer>
-    function dynamicModal(id, title, poster, year, director, genre, cast, imdb_rating, user_score) {
 
+    var acts;
+    function dynamicModal(id, title, poster, year, director, genre, cast, imdb_rating, user_score) {
+acts = cast;
         $("#banner").attr("src", poster);
         $("#movie_name").html(title + " (" + year + ")");
         $("#director").html("<b>Yönetmen: </b>" + director);
-        $("#genre").html("<b>Tür: </b>" + genre.toLocaleString());
-        $("#actors").html("<b>Oyuncular: </b>" + cast.toLocaleString());
+        $("#genre").html("<b>Tür: </b>" + genre.replace('[','').replace(']','').replaceAll("'",""));
+        $("#actors").html("<b>Oyuncular: </b>" + cast.replace('[','').replace(']','').replaceAll("'",""));
         $("#rating").html("<b>Puan: </b>" + imdb_rating);
         $("#user_rating").html("<b>Sizin Puanınız: </b>" + (user_score ? user_score : "Henüz puan vermemişsiniz"));
         $("#rate-submit").click(() => {
