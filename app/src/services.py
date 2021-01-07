@@ -3,7 +3,7 @@ import datetime
 from .engine import recommend_movie
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from .models import User
+from .models import User, Movie
 from werkzeug.security import check_password_hash, generate_password_hash
 
 
@@ -56,7 +56,16 @@ def search_movie(name, page):
 
 
 def get_movies(page, sortby):
-    return example_movies
+    sorts = [
+        "title",
+        "year",
+        "duration",
+        "imdb_rating",
+    ]
+    if sortby not in sorts:
+        return False
+    movies = session.query(Movie).order_by(sortby).all()[10*(page-1):10*(page)]
+    return movies
 
 
 def login(username, password):
