@@ -1,22 +1,31 @@
+from typing import ContextManager
 from flask.globals import session
-from flask import render_template, redirect, Response, request
-from flask import Flask
+from jinja2.utils import contextfunction
+from flask import Flask, render_template, redirect, Response, request, make_response
 from .src import services
 
 app = Flask(__name__)
 
+@app.context_processor
+def inject_user():
+    token = request.cookies.get("token")
+    auth_username = services.check_login(token)
+    is_login = False
+    if auth_username:
+        is_login = True
+        return dict(is_login=is_login, username=auth_username)
+    return dict(is_login=is_login)
+    
 
 @app.route('/')
 def index():
-    jwt = request.headers.get("jwt")
-    user = services.check_login(jwt)
-    is_login = False
+    token = request.cookies.get("token")
+    user = services.check_login(token)
     recommended_movies = None
     if user:
         recommended_movies = services.recommend_movies(user.id)
-
     top_movies = services.get_movies(1, "rate")
-    return render_template("index.html", is_login=is_login, recommended_movies=recommended_movies, top_movies=top_movies)
+    return render_template("index.html", recommended_movies=recommended_movies, top_movies=top_movies)
 
 
 @app.route('/rate-movie/<id>/<score>')
@@ -37,8 +46,8 @@ def movies():
 def all_movies(page):
     # TODO: Burada page numarasına göre sıradaki filmler çekilecek
     # movies = [{...},{...},...] yapısında bir değişkene konulacak
-    return render_template("movies.html", movies=popular_movies)
-
+    movies = services.get_movies(page, "imdb_rating")
+    return render_template("movies.html", movies=movies)
 
 @app.route('/movies/search/<name>')
 def search_movies(name):
@@ -56,12 +65,23 @@ def login():
     username = request.form['username']
     password = request.form['password']
     jwt = services.login(username, password)
+    resp = make_response(redirect("/", 302))
     if jwt:
-        return redirect("/", 302)
-    else:
-        return redirect("/error", 302)
+        resp.set_cookie("token", jwt)
+    return resp
+
+@app.route('/logout')
+def logout():
+    token = request.cookies.get("token")
+    resp = make_response(redirect("/", 302))
+    if token:
+        resp.delete_cookie("token")
+    return resp
+
 
 
 @app.route('/error')
 def error():
     return "Hatalı işlem"
+
+    
