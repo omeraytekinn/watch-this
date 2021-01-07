@@ -17,8 +17,9 @@ SECRET_KEY = "secret"
 def search_movie(name, page):
     print(name)
     movies = session.query(Movie).filter(Movie.title.contains(name)).all()
+    length = len(movies)
     movies = movies_to_dict(movies[5*(page-1):5*(page)])
-    return movies
+    return movies, length
 
 
 def movies_to_dict(movies):
@@ -56,9 +57,11 @@ def get_movies(page, sortby, count, asc=False):
     if sortby not in sorts:
         return False
     movies = session.query(Movie).order_by(
-        s(sortby)).all()[count*(page-1):count*(page)]
+        s(sortby)).all()
+    length = len(movies)
+    movies = movies[count*(page-1):count*(page)]
     movies = movies_to_dict(movies)
-    return movies
+    return movies, length
 
 
 def login(username, password):

@@ -1,7 +1,15 @@
 from flask import Flask, render_template, redirect, Response, request, make_response
 from .src import services
 import math
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 app = Flask(__name__)
+
+
+engine = create_engine('sqlite:///app/src/myblog.db',
+                       echo=False, connect_args={'check_same_thread': False})
+Session = sessionmaker(bind=engine)
+session = Session()
 
 
 @app.context_processor
@@ -24,7 +32,7 @@ def index():
     if user:
         is_login = True
         recommended_movies = services.recommend_movies(user.id)
-    top_movies = services.get_movies(1, "imdb_rating", 4)
+    top_movies, length = services.get_movies(1, "imdb_rating", 4)
     return render_template("index.html", is_login=is_login, recommended_movies=recommended_movies, top_movies=top_movies)
 
 
@@ -47,8 +55,15 @@ def movies():
 
 @app.route('/movies/all/<page>')
 def all_movies(page):
-    movies = services.get_movies(int(page), "imdb_rating", 5)
-    total_movies = len(movies)
+    movies, total_movies = services.get_movies(int(page), "imdb_rating", 5)
+    token = request.cookies.get("token")
+    user = services.check_login(token)
+    if user:
+        scores = user.scores
+        keys = movies.keys()
+        for i in scores:
+            if i.movie_id in keys:
+                movies[i.movie_id]["user_score"] = i.score
     total_page = math.ceil(total_movies/5)
     return render_template("movies.html", movies=movies, page=page, total_page=total_page, total_movies=total_movies)
 
@@ -60,8 +75,15 @@ def search_movies(name):
 
 @app.route('/movies/search/<name>/<page>')
 def search_movies_paged(name, page):
-    movies = services.search_movie(name, int(page))
-    total_movies = len(movies)
+    movies, total_movies = services.search_movie(name, int(page))
+    token = request.cookies.get("token")
+    user = services.check_login(token)
+    if user:
+        scores = user.scores
+        keys = movies.keys()
+        for i in scores:
+            if i.movie_id in keys:
+                movies[i.movie_id]["user_score"] = i.score
     total_page = math.ceil(total_movies/5)
     return render_template("movies.html", movies=movies, page=page, total_page=total_page, total_movies=total_movies)
 
