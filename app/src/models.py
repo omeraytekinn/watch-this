@@ -102,7 +102,7 @@ class User(Base):
 
 def create_db():
     engine = create_engine(
-        "sqlite:///myblog.db?check_same_thread=False", echo=False)
+        "sqlite:///myblog.db?check_same_thread=False", echo=False, connect_args={'check_same_thread': False})
     Base.metadata.create_all(engine)
 
 

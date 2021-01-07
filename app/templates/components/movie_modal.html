@@ -22,15 +22,9 @@
 
                         <div class="row mt-4" style="margin-left: 5px;">
                             {% if is_login %}
-                            <div class="col-6">
-                                <button class="btn btn-dark px-4" style="background-color: rgb(3, 54, 16); border:none;"
-                                    type="button" id="rate-up">
-                                    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                                </button>
-                                <button class="btn btn-dark px-4" style="background-color: rgb(66, 17, 8); border:none;"
-                                    type="button" id="rate-down">
-                                    <i class="fa fa-thumbs-down" aria-hidden="true"></i>
-                                </button>
+                            <div class="col-6" style="display: flex;">
+                                <input id="rate" type="number" max="10" min="1" default="5" />
+                                <button id="rate-submit">Gonder</button>
                             </div>
                             {% else %}
                             Oy vermek için giriş yapmanız gerekmektedir.
@@ -43,7 +37,7 @@
     </div>
 </div>
 <script defer>
-    function dynamicModal(title, poster, year, director, genre, cast, imdb_rating) {
+    function dynamicModal(id, title, poster, year, director, genre, cast, imdb_rating) {
 
         $("#banner").attr("src", poster);
         $("#movie_name").html(title + " (" + year + ")");
@@ -51,11 +45,8 @@
         $("#genre").html("<b>Tür: </b>" + genre);
         $("#actors").html("<b>Oyuncular: </b>" + cast);
         $("#rating").html("<b>Puan: </b>" + imdb_rating);
-        $("#rate-up").click(() => {
-            rate_movie(title, 100);
-        });
-        $("#rate-down").click(() => {
-            rate_movie(title, 0);
+        $("#rate-submit").click(() => {
+            rate_movie(id, $("#rate").val());
         });
     }
 </script>

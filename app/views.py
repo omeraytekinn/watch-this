@@ -34,14 +34,14 @@ def index():
 @app.route('/rate-movie/<id>/<score>')
 def rate(id, score):
     token = request.cookies.get("token")
-    username = services.check_login(token)
+    print(token)
+    user = services.check_login(token)
     result = None
-    if username:
-        result = services.rate_movie(username, id, score)
-    if result:
-        return Response("Successful!", status=200, mimetype='application/json')
-    else:
-        return Response("Unknown Error!", status=400, mimetype='application/json')
+    if user:
+        result = services.rate_movie(user.id, id, score)
+        if result:
+            return Response(status=200, mimetype='application/json')
+    return Response(status=400, mimetype='application/json')
 
 
 @app.route('/movies')

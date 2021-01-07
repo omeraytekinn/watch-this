@@ -4,7 +4,8 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
 from .models import Movie, UserScore, User
 
-engine = create_engine('sqlite:///app/src/myblog.db', echo=False)
+engine = create_engine('sqlite:///app/src/myblog.db',
+                       echo=False, connect_args={'check_same_thread': False})
 Session = sessionmaker(bind=engine)
 session = Session()
 

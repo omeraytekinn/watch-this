@@ -57,7 +57,8 @@ def save_to_db():
     print("movies fetching")
     get_movies()
     print("db creating")
-    engine = create_engine('sqlite:///myblog.db', echo=False)
+    engine = create_engine('sqlite:///myblog.db', echo=False,
+                           connect_args={'check_same_thread': False})
     Session = sessionmaker(bind=engine)
     session = Session()
 
