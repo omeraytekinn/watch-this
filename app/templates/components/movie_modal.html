@@ -22,9 +22,14 @@
 
                         <div class="row mt-4" style="margin-left: 5px;">
                             {% if is_login %}
-                            <div class="col-6" style="display: flex;">
-                                <input id="rate" type="number" max="10" min="1" value="5" />
-                                <button id="rate-submit">Gonder</button>
+                            <div class="col-6 form" style="display: flex;">
+                                <select class="form-control " id="rate">
+                                    {% for i in range(10) %}
+                                    <option value={{i}}>{{i}}</option>
+                                    {% endfor %}
+                                </select>
+                                <input class="form-control " id="rate" type="number" max="10" min="1" value="5" />
+                                <button class="btn btn-dark" style="background-color:rgb(123, 49, 30);" id="rate-submit">Gonder</button>
                             </div>
                             {% else %}
                             Oy vermek için giriş yapmanız gerekmektedir.
@@ -42,8 +47,8 @@
         $("#banner").attr("src", poster);
         $("#movie_name").html(title + " (" + year + ")");
         $("#director").html("<b>Yönetmen: </b>" + director);
-        $("#genre").html("<b>Tür: </b>" + genre);
-        $("#actors").html("<b>Oyuncular: </b>" + cast);
+        $("#genre").html("<b>Tür: </b>" + genre.toLocaleString());
+        $("#actors").html("<b>Oyuncular: </b>" + cast.toLocaleString());
         $("#rating").html("<b>Puan: </b>" + imdb_rating);
         $("#rate-submit").click(() => {
             rate_movie(id, $("#rate").val());
