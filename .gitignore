@@ -3,5 +3,3 @@ Pipfile
 Pipfile.lock
 __pycache__
 .vscode
-Procfile
-runtime.txt
