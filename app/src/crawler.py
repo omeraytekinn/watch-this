@@ -4,9 +4,13 @@ import csv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 import pandas as pd
-from .models import Movie, Actor, Director, Genre, create_db
 import os
 import re
+
+if __name__ == "__main__":
+    from models import Movie, Actor, Director, Genre, create_db
+else:
+    from .models import Movie, Actor, Director, Genre, create_db
 
 
 def get_movies():
@@ -102,3 +106,4 @@ def save_to_db():
 if __name__ == "__main__":
 
     save_to_db()
+    os.system("mv myblog.db app/src/myblog.db")
