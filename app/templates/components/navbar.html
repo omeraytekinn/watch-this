@@ -17,15 +17,12 @@
             </ul>
             <div class="d-flex">
                 <div class="btn-group" role="group" aria-label="Button group">
-
-                    <button class="btn btn-dark" style="
-            background-color:rgb(67, 68, 57);
-            border: none;
-            " type="submit" data-bs-toggle="modal" data-bs-target="#loginModal">Giriş Yap</button>
-                    <button class="btn btn-dark" style="
-            background-color: rgb(123, 49, 30);
-            border: none;
-            " type="submit" data-bs-toggle="modal" data-bs-target="#registerModal">Kaydol</button>
+                    {% if not is_login %}
+                    <button class="btn btn-dark" style=" background-color:rgb(67, 68, 57); border: none; " type="submit" data-bs-toggle="modal" data-bs-target="#loginModal">Giriş Yap</button>
+                    <button class="btn btn-dark" style="background-color: rgb(123, 49, 30); border: none;" type="submit" data-bs-toggle="modal" data-bs-target="#registerModal">Kaydol</button>
+                    {% else  %}
+                    <a class="btn btn-dark" style=" background-color:rgb(67, 68, 57); border: none; " href="/logout">Çıkış Yap</a>
+                    {% endif  %}
                 </div>
             </div>
         </div>
