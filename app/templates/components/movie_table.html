@@ -53,11 +53,11 @@
                         </button>
 
                         {% if is_login %}
-                            <select onchange="rate_submit('{{index}}', this.value)" style="background-color:rgba(0,0,0,0); margin-left: 5px; width:40px; height:35px; color:white; border-radius:3px;" id="rate">
-                                {% for i in range(9) %}
-                                <option value={{i+1}}>{{i+1}}</option>
-                                {% endfor %}
-                            </select>
+                                <select onchange="rate_submit('{{index}}', this.value)" style="background-color:rgba(0,0,0,0); margin-left: 5px; width:40px; height:35px; color:white; border-radius:3px;" id="rate" selected="{{movie.user_score ? movie.user_score : 0}}">
+                                    {% for i in range(9) %}
+                                    <option value={{i+1}}>{{i+1}}</option>
+                                    {% endfor %}
+                                </select>
                         {% endif %}
                 </td>
             </tr>
