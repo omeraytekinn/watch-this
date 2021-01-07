@@ -21,7 +21,7 @@
     {% include 'components/movie_slider.html' %}
     {% endwith %}
     {% endif %}
-    {% with title="Popüler Filmler", movies=top_movies  %}
+    {% with title="Popüler Filmler",link="movies", movies=top_movies  %}
     {% include 'components/movie_slider.html' %}
     {% endwith %}
     <!-- {% with title="Aksiyon Filmleri", movies=top_movies  %}

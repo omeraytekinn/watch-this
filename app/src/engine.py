@@ -68,7 +68,7 @@ def recommend_movie(user_id):
         and_(UserScore.user_id == user_id, UserScore.score <= 6)).all()]
 
     suggesteds = suggest_movie(likeds, unlikeds, 4)
-
+    
     return [session.query(Movie).filter(Movie.id == i).first() for i in suggesteds]
 
 

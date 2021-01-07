@@ -1,6 +1,6 @@
 <div class="container mt-5 mb-5 popular">
     <h4 class="slider-title" style="display: inline;">{{ title }}</h4>
-    <a href="#" style="float: right; text-decoration: none; color:rgb(255, 146, 118);">Tümünü Gör</a>
+    <a href="{{ link if link else '#' }}" style="float: right; text-decoration: none; color:rgb(255, 146, 118);">Tümünü Gör</a>
     <div class="row mt-3">
         {% for index, movie in movies.items() %}
 
