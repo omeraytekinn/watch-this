@@ -103,7 +103,7 @@ def recommend_movies(user_id):
     return temp
     
 def rate_movie(user_id, movie_id, score):
-    return False
+    return True
 
 def create_token(username):
     expiration_time = datetime.datetime.now() + datetime.timedelta(days=1)
