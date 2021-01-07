@@ -1,6 +1,13 @@
 import jwt
 import datetime
 from .engine import recommend_movie
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from .models import User
+
+engine = create_engine('sqlite:///app/src/myblog.db', echo=False)
+Session = sessionmaker(bind=engine)
+session = Session()
 
 example_movies = {
     "1": {
@@ -48,9 +55,11 @@ def get_movies(page, sortby):
     return example_movies
 
 def login(username, password):
-    # TODO: veritabanı doğrulaması eklenecek
-    token = create_token(username)
-    return token
+    user = session.query(User).filter(User.name == username).first()
+    if user:
+        token = create_token(username)
+        return token
+    return False
 
 def register(username, password):
     # TODO: veritabanı işlemleri
@@ -63,13 +72,14 @@ def check_login(token):
         username = decoded['username']
         expiration_time = datetime.datetime.fromtimestamp(decoded['exp'])
     except:
-        return None
-    
+        return False
+    user = session.query(User).filter(User.name == username).first()
+    if not user:
+        return False
     now = datetime.datetime.now()
     if datetime.datetime.now() > expiration_time:
-        return None
-    
-    return username
+        return False
+    return user
 
 def recommend_movies(user_id):
     recommendeds = recommend_movie()

@@ -6,6 +6,7 @@ from .src import services
 
 app = Flask(__name__)
 
+
 @app.context_processor
 def inject_user():
     token = request.cookies.get("token")
@@ -15,7 +16,7 @@ def inject_user():
         is_login = True
         return dict(is_login=is_login, username=auth_username)
     return dict(is_login=is_login)
-    
+
 
 @app.route('/')
 def index():
@@ -49,6 +50,7 @@ def all_movies(page):
     movies = services.get_movies(page, "imdb_rating")
     return render_template("movies.html", movies=movies)
 
+
 @app.route('/movies/search/<name>')
 def search_movies(name):
     return redirect("/search/" + name + "/1", 302)
@@ -61,14 +63,16 @@ def search_movies_paged(name, page):
 
 @app.route('/login', methods=["POST"])
 def login():
-    # TODO: Buraya giriş işlemleri gelecek sonuç başarılıysa anasayfaya yönlendirecek
     username = request.form['username']
     password = request.form['password']
     jwt = services.login(username, password)
-    resp = make_response(redirect("/", 302))
     if jwt:
+        resp = make_response(redirect("/", 302))
         resp.set_cookie("token", jwt)
+        return resp
+    resp = make_response(redirect("/", 401))
     return resp
+
 
 @app.route('/logout')
 def logout():
@@ -79,9 +83,6 @@ def logout():
     return resp
 
 
-
 @app.route('/error')
 def error():
     return "Hatalı işlem"
-
-    
