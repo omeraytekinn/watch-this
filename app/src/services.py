@@ -67,10 +67,18 @@ def login(username, password):
     return False
 
 
-def register(username, password):
-    # TODO: veritabanı işlemleri
-    token = create_token(username)
-    return token
+def register(name, username, email, password):
+    user = session.query(User).filter_by(username=username).first()
+    user2 = session.query(User).filter_by(email=email).first()
+    if user:
+        return 1
+    if user2:
+        return 2
+    hashed = generate_password_hash(password)
+    user = User(name=name, username=username, email=email, password=hashed)
+    session.add(user)
+    session.commit()
+    return True
 
 
 def check_login(token):

@@ -5,12 +5,20 @@
             <div class="modal-body">
                 <form method="POST" action="/register">
                     <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Kullanıcı Adı</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1">
+                    <label class="form-label">Isim</label>
+                    <input type="text" class="form-control" name="name" required>
                     </div>
                     <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Parola</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1">
+                    <label class="form-label">Kullanıcı Adı</label>
+                    <input type="text" class="form-control" name="username" required>
+                    </div>
+                    <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                    <label class="form-label">Parola</label>
+                    <input type="password" class="form-control" name="password" required>
                     </div>
                     
                     <button class="btn btn-dark" style="
