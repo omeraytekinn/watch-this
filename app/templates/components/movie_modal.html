@@ -19,17 +19,16 @@
                             <li class="list-group-item" id="actors"></li>
                             <li class="list-group-item" id="rating"></li>
                         </ul>
-
+                        
                         <div class="row mt-4" style="margin-left: 5px;">
                             {% if is_login %}
                             <div class="col-6 form" style="display: flex;">
-                                <select class="form-control " id="rate">
-                                    {% for i in range(10) %}
-                                    <option value={{i}}>{{i}}</option>
+                                <select style="background-color: black; width:40%; color:white; border-radius:3px;" id="rate">
+                                    {% for i in range(9) %}
+                                    <option value={{i+1}}>{{i+1}}</option>
                                     {% endfor %}
                                 </select>
-                                <input class="form-control " id="rate" type="number" max="10" min="1" value="5" />
-                                <button class="btn btn-dark" style="background-color:rgb(123, 49, 30);" id="rate-submit">Gonder</button>
+                                <button class="btn btn-dark" style="background-color:rgb(123, 49, 30); margin-left:10px;width:40%; " id="rate-submit">Gonder</button>
                             </div>
                             {% else %}
                             Oy vermek için giriş yapmanız gerekmektedir.

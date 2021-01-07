@@ -6,7 +6,7 @@
         <h3 class="text-capitalize">Tüm Filmler</h3>
     </div>
 
-    {% with title="Popüler Filmler", movies=movies, page=page, total_page=tota_page, total_movies=total_movies %}
+    {% with title="Popüler Filmler", movies=movies, page=page | int, total_page=total_page | int, total_movies=total_movies | int %}
     {% include 'components/movie_table.html' %}
     {% endwith %}  
 </div>

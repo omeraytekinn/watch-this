@@ -38,7 +38,6 @@
                 <td>{{movie.year}}</td>
                 <td>{{movie.rate}}</td>
                 <td>
-                    <div class="btn-group" role="group" aria-label="Button group">
                         <button class="btn btn-dark" style="background-color: rgb(67, 68, 57); border:none;"
                             type="button" data-bs-toggle="modal" data-bs-target="#movieModal" onclick="dynamicModal(
                                 `{{index}}`, 
@@ -53,7 +52,13 @@
                             <i class="fa fa-search-plus" aria-hidden="true"></i>
                         </button>
 
-                    </div>
+                        {% if is_login %}
+                            <select onchange="rate_submit('{{index}}', this.value)" style="background-color:rgba(0,0,0,0); margin-left: 5px; width:40px; height:35px; color:white; border-radius:3px;" id="rate">
+                                {% for i in range(9) %}
+                                <option value={{i+1}}>{{i+1}}</option>
+                                {% endfor %}
+                            </select>
+                        {% endif %}
                 </td>
             </tr>
             {% endfor %}
@@ -61,22 +66,54 @@
     </table>
     <form class="row pagination mb-5">
         <div class="offset-6 col-4 align-content-end small" style="text-align: end;">
-            {% set page = page | int %}
             {{ total_movies }} sonuç arasından {{ (page-1)*5+1 }}-{{ (page)*5 }} arası listeleniyor:
         </div>
         <div class="col-2 align-content-end" style="text-align: end;">
-            <button class="btn btn-dark btn-sm" type="button">
+            <button id="first-btn" class="btn btn-dark btn-sm" type="button" onclick="firstPage()">
                 << </button>
-                    <button class="btn btn-dark btn-sm" type="button">
+                    <button id="prev-btn" class="btn btn-dark btn-sm" type="button" onclick="prevPage()">
                         < </button>
-                            <button class="btn btn-dark btn-sm" type="button"> 1 </button>
-                            <button class="btn btn-dark btn-sm" type="button"> > </button>
-                            <button class="btn btn-dark btn-sm" type="button"> >> </button>
+                             1 ({{ total_page }})
+                            <button id="next-btn" class="btn btn-dark btn-sm" type="button" onclick="nextPage()"> > </button>
+                            <button id="last-btn" class="btn btn-dark btn-sm" type="button" onclick="lastPage()"> >> </button>
         </div>
     </form>
 </div>
-
 <script>
     $("#search-button").click(() => $(location).attr('href', '/movies/search/' + $("#search-bar").val() + '/1'))
     var movies = JSON.parse('{{ movies|tojson }}');
+    
+    if( "{{ page == total_page }}" ) {
+        $("#next-btn").attr("disabled", "disabled");
+        $("#last-btn").attr("disabled", "disabled");
+    }
+    if("{{ page == 1 }}") {
+        $("#prev-btn").attr("disabled", "disabled");
+        $("#first-btn").attr("disabled", "disabled");
+    }
+
+    function changePage(page) {
+        console.log(page)
+        //$(location).attr('href', page);
+    }
+    function firstPage() {
+        changePage(1);
+    }
+    function lastPage() {
+        changePage("{{ total_page }}");
+    }
+    function prevPage() {
+        changePage("{{ page - 1 }}");
+    }
+    function nextPage() {
+        changePage("{{ page + 1 }}");
+    }
+
+    function rate_submit(movie_id, score) {
+        var r = confirm("Puanı onaylıyor musunuz: " + score);
+        if (r == true) {
+            rate_movie(movie_id, score);
+        }
+    }
+
 </script>
