@@ -35,6 +35,8 @@ def index():
     top_movies, length = services.get_movies(1, "imdb_rating", 4)
     return render_template("index.html", is_login=is_login, recommended_movies=recommended_movies, top_movies=top_movies)
 
+    
+ 
 
 @app.route('/rate-movie/<movie_id>/<score>')
 def rate(movie_id, score):
@@ -66,6 +68,7 @@ def all_movies(page):
                 movies[i.movie_id]["user_score"] = i.score
     total_page = math.ceil(total_movies/5)
     return render_template("movies.html", movies=movies, page=page, total_page=total_page, total_movies=total_movies)
+
 
 
 @app.route('/movies/search/<name>')
