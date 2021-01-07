@@ -21,13 +21,14 @@ def inject_user():
 @app.route('/')
 def index():
     token = request.cookies.get("token")
-    username = services.check_login(token)
+    user = services.check_login(token)
     recommended_movies = None
-    if username:
-        pass
-        #recommended_movies = services.recommend_movies(username)
-    top_movies = services.get_movies(1, "rate")
-    return render_template("index.html", recommended_movies=recommended_movies, top_movies=top_movies)
+    is_login = False
+    if user:
+        is_login = True
+        recommended_movies = services.recommend_movies(user.id)
+    top_movies = services.get_movies(1, "imdb_rating")
+    return render_template("index.html", is_login=is_login, recommended_movies=recommended_movies, top_movies=top_movies)
 
 
 @app.route('/rate-movie/<id>/<score>')
