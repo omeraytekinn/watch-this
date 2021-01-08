@@ -1,9 +1,7 @@
 ## Demo
 
-```
 http://watch-this-movie.herokuapp.com/
 
-```
 
 
 # Installation
