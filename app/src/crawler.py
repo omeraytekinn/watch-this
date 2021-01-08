@@ -106,4 +106,7 @@ def save_to_db():
 if __name__ == "__main__":
 
     save_to_db()
+    print("Moving db to src")
+    print(os.listdir("app/src/"))
     os.system("mv myblog.db app/src/myblog.db")
+    print(os.listdir("app/src/"))
